@@ -356,7 +356,7 @@ class Grid(object):
         return self.__class__(**args)
 
     def profile(self, point1, point2, npoints, attribute=None,
-                extrapolate=False):
+                extrapolate=False, projection=None):
         """
         Extract a profile between point 1 and point 2.
         """
@@ -364,6 +364,10 @@ class Grid(object):
             attribute = self._attributes
         elif isinstance(attribute, str):
             attribute = [attribute]
+        if projection is not None:
+            x, y = numpy.transpose([point1, point2])
+            y, x = self.projection.transform_points(projection, y, x).T[:2]
+            point1, point2 = numpy.transpose([x, y])
         args = dict(shape=None, projection=self.projection)
         for k in attribute:
             x, y, dist, args[k] = profile(self.x, self.y, getattr(self, k),
