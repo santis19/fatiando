@@ -161,7 +161,7 @@ class Grid(object):
         return grid
 
     @staticmethod
-    def load_csv(fname, column_names=None, **kwargs):
+    def load_csv(fname, column_names=None, usecols=None, **kwargs):
         """
         Load data from a CSV file.
         """
@@ -181,9 +181,12 @@ class Grid(object):
                 f.seek(0)
             else:
                 if column_names is None:
-                    column_names = columns
+                    if usecols is None:
+                        column_names = columns
+                    else:
+                        column_names = [columns[c] for c in usecols]
             grid = Grid.load_numpy(f, column_names=column_names, binary=False,
-                                   delimiter=';')
+                                   delimiter=';', usecols=usecols, **kwargs)
         return grid
 
     @staticmethod
