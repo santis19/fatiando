@@ -208,7 +208,7 @@ class Grid(object):
         return Grid(**args)
 
     @staticmethod
-    def load_gdf(fname, **kwargs):
+    def load_gdf(fname, column_names=None, usecols=None, **kwargs):
         """
         Load data from an ICGEM .gdf file.
         """
@@ -232,16 +232,19 @@ class Grid(object):
                     if parts[0] == 'height_over_ell':
                         height = float(parts[1])
                     elif parts[0] == 'latitude_parallels':
-                        shape[0] = int(parts[1])
-                    elif parts[0] == 'longitude_parallels':
                         shape[1] = int(parts[1])
+                    elif parts[0] == 'longitude_parallels':
+                        shape[0] = int(parts[1])
                     elif parts[0] == 'number_of_gridpoints':
                         size = int(parts[1])
                 else:
                     attributes = line.strip().split()
                     attr_line = False
             # Read the numerical values
-            data = numpy.loadtxt(f, unpack=True)
+            kwargs['unpack'] = True
+            kwargs['usecols'] = usecols
+            kwargs['ndmin'] = 2
+            data = numpy.loadtxt(f, **kwargs)
         # Sanity checks
         if any(n is None for n in shape):
             shape = None
@@ -251,12 +254,16 @@ class Grid(object):
                 raise ValueError(
                     "Grid shape {} and size read ({})".format(shape, size)
                     + " are incompatible.")
-        if attributes is None:
+        if column_names is not None:
+            attributes = column_names
+        elif attributes is None:
             raise ValueError("Couldn't read column names.")
-        if len(attributes) != len(data):
+        elif usecols is not None:
+            attributes = [attributes[i] for i in usecols]
+        if len(attributes) != data.shape[0]:
             raise ValueError(
                 "Number of columns names ({})".format(len(attributes))
-                + " doesn't match columns read ({}).".format(len(data)))
+                + " doesn't match columns read ({}).".format(data.shape[0]))
         # Make the argument list for the grid
         args = dict(shape=shape, metadata=''.join(metadata))
         if (height is not None) and ('height' not in attributes):
@@ -272,7 +279,7 @@ class Grid(object):
             args[attr] = value
         return Grid(**args)
 
-    def dump_csv(self, fname):
+    def dump_csv(self, fname, **kwargs):
         """
         Save the data to a CSV file.
         """
@@ -288,8 +295,12 @@ class Grid(object):
         f.write('; '.join(column_names))
         f.write('\n')
         data = (getattr(self, i) for i in ['x', 'y'] + self.get_attributes())
+        if 'delimiter' not in kwargs:
+            kwargs['delimiter'] = ';'
+        if 'fmt' not in kwargs:
+            kwargs['fmt'] = '%.5f'
         numpy.savetxt(f, numpy.hstack(c.reshape((self.size, 1)) for c in data),
-                      delimiter='; ')
+                      **kwargs)
         if isinstance(fname, str):
             f.close()
 
