@@ -352,22 +352,19 @@ class Grid(object):
         """
         Interpolate the grid data on a regular grid.
         """
-        ny, nx = shape
         if area is None:
             area = self.area
-        x1, x2, y1, y2 = area
-        xs = numpy.linspace(x1, x2, nx)
-        ys = numpy.linspace(y1, y2, ny)
-        xp, yp = [i.ravel() for i in numpy.meshgrid(xs, ys)]
+        grid = Grid.regular(area, shape, z=None, projection=self.projection,
+                            lonlat=self.lonlat)
         if attribute is None:
             attribute = self._attributes
         elif isinstance(attribute, str):
             attribute = [attribute]
-        args = dict(x=xp, y=yp, shape=shape, projection=self.projection)
         for k in attribute:
-            args[k] = interp_at(self.x, self.y, getattr(self, k), xp, yp,
-                                algorithm, extrapolate)
-        return self.__class__(**args)
+            values = interp_at(self.x, self.y, getattr(self, k),
+                               grid.x, grid.y, algorithm, extrapolate)
+            grid.add_attribute(k,  values)
+        return grid
 
     def profile(self, point1, point2, npoints, attribute=None,
                 extrapolate=False, projection=None):
