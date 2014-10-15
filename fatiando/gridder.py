@@ -276,7 +276,10 @@ class Grid(object):
                 n = shape[0]*shape[1]
             args['height'] = height*numpy.ones(n)
         for attr, value in zip(attributes, data):
-            args[attr] = value
+            # Do all this because the ICGEM grids vary lon first, then lat
+            # But for all else here we need lat first (x), then lon (y)
+            # reshapes further on will rely on this, so fix it when reading
+            args[attr] = value.reshape((shape[1], shape[0])).T.ravel()
         return Grid(**args)
 
     def dump_csv(self, fname, **kwargs):
