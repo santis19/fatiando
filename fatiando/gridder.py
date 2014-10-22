@@ -36,7 +36,7 @@ You can still use the functions below to achieve some of this functionality.
 ----
 
 """
-
+from __future__ import division
 import numpy
 import scipy.interpolate
 import matplotlib.mlab
@@ -94,6 +94,58 @@ class Grid(object):
         setattr(self, name.lower(), value)
         self._attributes.append(name)
         return self
+
+    def __getitem__(self, item):
+        args = dict((k, getattr(self, k)[item])
+                    for k in self._attributes + ['x', 'y'])
+        if self.lonlat:
+            args['lonlat'] = True
+        if self.projection is not None:
+            args['projection'] = self.projection
+        args['shape'] = None
+        return Grid(**args)
+
+    def cut(self, area):
+        """
+        Return a smaller grid with the points that fall inside an area.
+
+        If the grid is regular (i.e., has a ``shape`` attribute), the output
+        will also be a regular grid.
+
+        Parameters:
+
+        * area : list = [x1, x2, y1, y2]
+            The area that contains the desired points
+
+        Returns:
+
+        * subgrid : :class:`~fatiando.gridder.Grid`
+            A ``Grid`` object with points that fall inside *area* (with all the
+            attributes of the original grid)
+
+        """
+        x1, x2, y1, y2 = area
+        if self.shape is not None:
+            shape = self.shape
+            x = numpy.linspace(self.area[0], self.area[1], shape[1])
+            y = numpy.linspace(self.area[2], self.area[3], shape[0])
+            jmin = numpy.abs(x - x1).argmin()
+            jmax = numpy.abs(x - x2).argmin() + 1
+            imin = numpy.abs(y - y1).argmin()
+            imax = numpy.abs(y - y2).argmin() + 1
+            args = dict(
+                (k, getattr(self, k).reshape(shape)[imin:imax, jmin:jmax])
+                for k in self._attributes + ['x', 'y'])
+            args['shape'] = (imax - imin, jmax - jmin)
+            if self.lonlat:
+                args['lonlat'] = True
+            if self.projection is not None:
+                args['projection'] = self.projection
+            return Grid(**args)
+        else:
+            inside = ((self.x >= x1) & (self.x <= x2) &
+                      (self.y >= y1) & (self.y <= y2))
+            return self[inside]
 
     @staticmethod
     def regular(area, shape, z=None, lonlat=False, projection=None):
@@ -747,8 +799,8 @@ def spacing(area, shape):
     """
     x1, x2, y1, y2 = area
     ny, nx = shape
-    dx = float(x2 - x1) / float(nx - 1)
-    dy = float(y2 - y1) / float(ny - 1)
+    dx = (x2 - x1)/(nx - 1)
+    dy = (y2 - y1)/(ny - 1)
     return [dy, dx]
 
 
