@@ -483,6 +483,9 @@ class Grid(object):
         """
         Make a pseudo-color map of the given attribute.
         """
+        assert self.shape is not None, \
+            "'shape' not set. Can only plot regular grids. " + \
+            "Try method 'interp' to produce a regular grid"
         if isinstance(attribute, str):
             attribute = getattr(self, attribute)
         values = numpy.ma.masked_where(
@@ -513,6 +516,9 @@ class Grid(object):
         """
         Make a filled contour map of the given attribute.
         """
+        assert self.shape is not None, \
+            "'shape' not set. Can only plot regular grids. " + \
+            "Try method 'interp' to produce a regular grid"
         if isinstance(attribute, str):
             attribute = getattr(self, attribute)
         values = numpy.ma.masked_where(
@@ -544,6 +550,9 @@ class Grid(object):
         """
         Make a contour plot of the given attribute
         """
+        assert self.shape is not None, \
+            "'shape' not set. Can only plot regular grids. " + \
+            "Try method 'interp' to produce a regular grid"
         if isinstance(attribute, str):
             attribute = getattr(self, attribute)
         values = numpy.ma.masked_where(
