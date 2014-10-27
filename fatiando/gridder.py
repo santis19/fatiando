@@ -56,7 +56,7 @@ class Grid(object):
         added = []
         for k, v in kwargs.iteritems():
             if k not in self._special_attributes:
-                v = numpy.asarray(v).ravel()
+                v = numpy.atleast_1d(v).ravel()
             if k in ['lon', 'long', 'longitude']:
                 k = 'lon'
                 if 'y' not in kwargs:
@@ -89,7 +89,7 @@ class Grid(object):
         """
         Add a column to the grid.
         """
-        value = numpy.asarray(value).ravel()
+        value = numpy.atleast_1d(value).ravel()
         assert value.size == self.size, "Attribute must have same size as grid"
         setattr(self, name.lower(), value)
         self._attributes.append(name)
@@ -202,6 +202,8 @@ class Grid(object):
                 grid = Grid.load_gdf(fname, **kwargs)
             elif ext == 'csv':
                 grid = Grid.load_csv(fname, **kwargs)
+            elif ext == 'grd':
+                grid = Grid.load_surfer(fname, **kwargs)
         if grid is None:
             if 'binary' not in kwargs:
                 try:
@@ -257,6 +259,22 @@ class Grid(object):
             column_names = ['x', 'y'] + attributes
         assert len(column_names) == len(data), "Insuffient column names."
         args = dict([k, v] for k, v in zip(column_names, data))
+        return Grid(**args)
+
+    @staticmethod
+    def load_surfer(fname, attribute_name='data', lonlat=False, tradexy=False):
+        """
+        Load data from an ASCII Surfer grid file.
+        """
+        x, y, value, shape = load_surfer(fname, fmt='ascii')
+        args = dict(shape=shape, lonlat=lonlat)
+        if tradexy:
+            args['x'] = y
+            args['y'] = x
+        else:
+            args['x'] = x
+            args['y'] = y
+        args[attribute_name] = value
         return Grid(**args)
 
     @staticmethod
@@ -692,9 +710,9 @@ def load_surfer(fname, fmt='ascii'):
             ymin, ymax = [float(s) for s in ftext.readline().split()]
             # Read the min/max value of grd
             zmin, zmax = [float(s) for s in ftext.readline().split()]
-            data = numpy.fromiter((float(i) for line in ftext for i in
-                                   line.split()), dtype='f')
-            grd = numpy.ma.masked_greater_equal(data, 1.70141e+38)
+            grd = numpy.fromiter((float(i) for line in ftext for i in
+                                 line.split()), dtype=numpy.float)
+            grd[grd >= 1.70141e+38] = numpy.nan
         # Create x and y numpy arrays
         x = numpy.linspace(xmin, xmax, nx)
         y = numpy.linspace(ymin, ymax, ny)
