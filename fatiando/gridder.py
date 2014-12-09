@@ -37,6 +37,7 @@ You can still use the functions below to achieve some of this functionality.
 
 """
 from __future__ import division
+import copy as pycopy
 import numpy
 import scipy.interpolate
 import matplotlib.mlab
@@ -441,6 +442,29 @@ class Grid(object):
             values = interp_at(self.x, self.y, getattr(self, k),
                                grid.x, grid.y, algorithm, extrapolate)
             grid.add_attribute(k,  values)
+        return grid
+
+    def interp_nans(self, dummy=None, algorithm='cubic', copy=False):
+        """
+        Fill the nan values in the attributes by interpolation.
+        """
+        if copy:
+            grid = pycopy.deepcopy(self)
+        else:
+            grid = pycopy.copy(self)
+        for attribute in grid._attributes:
+            v = getattr(grid, attribute)
+            if dummy is not None:
+                where = v == dummy
+            else:
+                where = ~numpy.isfinite(v)
+            nans = grid[where]
+            if nans.size > 0:
+                notnans = grid[~where]
+                fill = interp_at(notnans.x, notnans.y,
+                                 getattr(notnans, attribute), nans.x, nans.y,
+                                 algorithm, extrapolate=True)
+                getattr(grid, attribute)[where] = fill
         return grid
 
     def profile(self, point1, point2, npoints, attribute=None,
