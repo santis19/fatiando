@@ -215,10 +215,14 @@ class Grid(object):
         return grid
 
     @staticmethod
-    def load_csv(fname, column_names=None, usecols=None, **kwargs):
+    def load_csv(fname, **kwargs):
         """
         Load data from a CSV file.
         """
+        column_names = kwargs.get('column_names', None)
+        usecols = kwargs.get('usecols', None)
+        if 'delimiter' not in kwargs:
+            kwargs['delimiter'] = ';'
         with open(fname) as f:
             # Check if first line contains the column names
             first = f.readline().strip().split(';')
@@ -239,8 +243,8 @@ class Grid(object):
                         column_names = columns
                     else:
                         column_names = [columns[c] for c in usecols]
-            grid = Grid.load_numpy(f, column_names=column_names, binary=False,
-                                   delimiter=';', usecols=usecols, **kwargs)
+                kwargs['column_names'] = column_names
+            grid = Grid.load_numpy(f, **kwargs)
         return grid
 
     @staticmethod
