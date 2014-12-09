@@ -487,6 +487,13 @@ class Grid(object):
                                           extrapolate=extrapolate)
         return self.__class__(x=x, y=y, distance=dist, **args)
 
+    def set_shape(self, shape):
+        """
+        Replace the shape attribute.
+        """
+        self.shape = shape
+        return self
+
     def set_projection(self, proj):
         """
         Specify the Cartopy projection object that corresponds to the
