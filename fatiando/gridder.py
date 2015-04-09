@@ -37,6 +37,7 @@ You can still use the functions below to achieve some of this functionality.
 
 """
 from __future__ import division
+import six
 import copy as pycopy
 import numpy
 import scipy.interpolate
@@ -96,15 +97,28 @@ class Grid(object):
         self._attributes.append(name)
         return self
 
+    def __setitem__(self, name, value):
+        assert isinstance(name, six.string_types), \
+            "Invalid attribute '{}'. Must be a string.".format(name)
+        self.add_attribute(name, value)
+
     def __getitem__(self, item):
-        args = dict((k, getattr(self, k)[item])
-                    for k in self._attributes + ['x', 'y'])
-        if self.latlon:
-            args['latlon'] = True
-        if self.projection is not None:
-            args['projection'] = self.projection
-        args['shape'] = None
-        return Grid(**args)
+        # Indexing with a string leads to getting an attribute...
+        if isinstance(item, six.string_types):
+            assert item in self.attributes, \
+                "Grid doesn't have an attribute '{}'".format(item)
+            return getattr(self, item)
+        # ... while indexing with an integer or slice leads to slicing the
+        # attributes and returning a subgrid
+        else:
+            args = dict((k, getattr(self, k)[item])
+                        for k in self._attributes + ['x', 'y'])
+            if self.latlon:
+                args['latlon'] = True
+            if self.projection is not None:
+                args['projection'] = self.projection
+            args['shape'] = None
+            return Grid(**args)
 
     def cut(self, area):
         """
@@ -529,8 +543,8 @@ class Grid(object):
                 ax = pyplot.axes(projection=self.projection)
         if self.projection is not None:
             kwargs['transform'] = self.projection
-        plot = ax.plot(self.y, self.x, style, **kwargs)
-        return plot
+        ax.plot(self.y, self.x, style, **kwargs)
+        return ax
 
     def pcolor(self, attribute, autoranges=True, colorbar='vertical', ax=None,
                basemap=None, **kwargs):
@@ -563,7 +577,7 @@ class Grid(object):
         x1, x2, y1, y2 = self.area
         ax.set_xlim(y1, y2)
         ax.set_ylim(x1, x2)
-        return plot
+        return ax
 
     def contourf(self, attribute, levels=10, autoranges=True,
                  colorbar='vertical', ax=None, basemap=None, **kwargs):
@@ -596,7 +610,7 @@ class Grid(object):
         x1, x2, y1, y2 = self.area
         ax.set_xlim(y1, y2)
         ax.set_ylim(x1, x2)
-        return plot
+        return ax
 
     def contour(self, attribute, levels=10, autoranges=True, ax=None,
                 basemap=None, label=None, clabel=True, style='solid',
@@ -638,7 +652,7 @@ class Grid(object):
         x1, x2, y1, y2 = self.area
         ax.set_xlim(y1, y2)
         ax.set_ylim(x1, x2)
-        return ct
+        return ax
 
 
 def _autocmap(values, autoranges, args):
@@ -680,10 +694,12 @@ def _add_colorbar(mappable, orientation, ax):
     if orientation == 'horizontal':
         cbargs['pad'] = 0.02
         cbargs['aspect'] = 50
+        ax.xaxis.tick_top()
     else:
         cbargs['pad'] = 0
         cbargs['aspect'] = 20
-    ax.get_figure().colorbar(mappable, ax=ax, **cbargs)
+    cb = ax.get_figure().colorbar(mappable, ax=ax, **cbargs)
+    return cb
 
 
 def load_surfer(fname, fmt='ascii'):
