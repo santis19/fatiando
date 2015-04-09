@@ -4,7 +4,7 @@ Create and operate on grids and profiles.
 All the main functionality of this module (and more) is implemented in the
 :class:`~fatiando.gridder.Grid` class.
 Use it to generate grids of points, load from file, plot data, interpolate,
-and work with `Cartopy <http://scitools.org.uk/cartopy/>`__ projections.
+and work with map projections.
 
 You can still use the functions below to achieve some of this functionality.
 
