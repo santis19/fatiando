@@ -50,7 +50,7 @@ class Grid(object):
     """
 
     _coord_names = ['x', 'y', 'lon', 'long', 'longitude', 'lat', 'latitude']
-    _special_attributes = ['shape', 'projection', 'lonlat', 'metadata']
+    _special_attributes = ['shape', 'projection', 'latlon', 'metadata']
 
     def __init__(self, **kwargs):
         kwargs = dict((k.lower(), v) for k, v in kwargs.iteritems())
@@ -75,9 +75,9 @@ class Grid(object):
         if 'projection' not in added:
             self.projection = None
         if 'x' not in kwargs or 'y' not in kwargs:
-            self.lonlat = True
+            self.latlon = True
         else:
-            self.lonlat = False
+            self.latlon = False
         not_attributes = set(self._coord_names + self._special_attributes)
         self._attributes = list(set(added).difference(not_attributes))
         # Check all attributes have the same size
@@ -99,8 +99,8 @@ class Grid(object):
     def __getitem__(self, item):
         args = dict((k, getattr(self, k)[item])
                     for k in self._attributes + ['x', 'y'])
-        if self.lonlat:
-            args['lonlat'] = True
+        if self.latlon:
+            args['latlon'] = True
         if self.projection is not None:
             args['projection'] = self.projection
         args['shape'] = None
@@ -138,8 +138,8 @@ class Grid(object):
                 (k, getattr(self, k).reshape(shape)[imin:imax, jmin:jmax])
                 for k in self._attributes + ['x', 'y'])
             args['shape'] = (imax - imin, jmax - jmin)
-            if self.lonlat:
-                args['lonlat'] = True
+            if self.latlon:
+                args['latlon'] = True
             if self.projection is not None:
                 args['projection'] = self.projection
             return Grid(**args)
@@ -149,7 +149,7 @@ class Grid(object):
             return self[inside]
 
     @staticmethod
-    def regular(area, shape, z=None, lonlat=False, projection=None):
+    def regular(area, shape, z=None, latlon=False, projection=None):
         """
         Generate a regular grid
         """
@@ -158,7 +158,7 @@ class Grid(object):
         x, y = numpy.meshgrid(numpy.linspace(x1, x2, nx),
                               numpy.linspace(y1, y2, ny))
         args = dict(shape=shape, projection=projection)
-        if lonlat:
+        if latlon:
             args['lon'] = y
             args['lat'] = x
         else:
@@ -169,7 +169,7 @@ class Grid(object):
         return Grid(**args)
 
     @staticmethod
-    def scatter(area, n, z=None, lonlat=False, projection=None, seed=None):
+    def scatter(area, n, z=None, latlon=False, projection=None, seed=None):
         """
         Generate a random scatter of points.
         """
@@ -178,7 +178,7 @@ class Grid(object):
         args = dict(shape=None, projection=projection)
         if len(coords) == 3:
             args['z'] = coords[2]
-        if lonlat:
+        if latlon:
             args['lon'] = y
             args['lat'] = x
         else:
@@ -267,12 +267,12 @@ class Grid(object):
         return Grid(**args)
 
     @staticmethod
-    def load_surfer(fname, attribute_name='data', lonlat=False, tradexy=False):
+    def load_surfer(fname, attribute_name='data', latlon=False, tradexy=False):
         """
         Load data from an ASCII Surfer grid file.
         """
         x, y, value, shape = load_surfer(fname, fmt='ascii')
-        args = dict(shape=shape, lonlat=lonlat)
+        args = dict(shape=shape, latlon=latlon)
         if tradexy:
             args['x'] = y
             args['y'] = x
@@ -365,14 +365,14 @@ class Grid(object):
             f = open(fname, 'w')
         else:
             f = fname
-        if self.lonlat:
+        if self.latlon:
             column_names = ['latitude', 'longitude']
         else:
             column_names = ['x', 'y']
-        column_names.extend(self.get_attributes())
+        column_names.extend(self.attributes)
         f.write('; '.join(column_names))
         f.write('\n')
-        data = (getattr(self, i) for i in ['x', 'y'] + self.get_attributes())
+        data = (getattr(self, i) for i in ['x', 'y'] + self.attributes)
         if 'delimiter' not in kwargs:
             kwargs['delimiter'] = ';'
         if 'fmt' not in kwargs:
@@ -404,7 +404,8 @@ class Grid(object):
         dy = (y2 - y1)/(ny - 1)
         return dx, dy
 
-    def get_attributes(self):
+    @property
+    def attributes(self):
         """
         Return a list of the attributes (column names) of the grid
         """
@@ -433,7 +434,7 @@ class Grid(object):
         if area is None:
             area = self.area
         grid = Grid.regular(area, shape, z=None, projection=self.projection,
-                            lonlat=self.lonlat)
+                            latlon=self.latlon)
         if attribute is None:
             attribute = self._attributes
         elif isinstance(attribute, str):
