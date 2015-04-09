@@ -62,7 +62,7 @@ def test_grid_regular():
         x1, x2, y1, y2 = area
         ny, nx = shape
         g = gridder.Grid.regular(area, shape)
-        g2 = gridder.Grid.regular(area, shape, lonlat=True)
+        g2 = gridder.Grid.regular(area, shape, latlon=True)
         i = 0
         for yp in np.linspace(y1, y2, ny):
             for xp in np.linspace(x1, x2, nx):
