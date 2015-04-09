@@ -677,7 +677,7 @@ def _autocmap(values, autoranges, args):
         args['vmax'] = absmax
     if 'cmap' not in args:
         if diverging:
-            args['cmap'] = pyplot.cm.RdBu_r
+            args['cmap'] = pyplot.cm.RdYlBu_r
         else:
             if sign == 'positive':
                 args['cmap'] = pyplot.cm.Reds
