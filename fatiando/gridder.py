@@ -518,7 +518,7 @@ class Grid(object):
                               shape=self.shape, **args)
         return grid
 
-    def points(self, style='.k', ax=None, **kwargs):
+    def plot(self, style='.k', ax=None, **kwargs):
         """
         Plot the data points on a map.
         """
