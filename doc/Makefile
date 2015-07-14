@@ -13,7 +13,7 @@ endif
 # Internal variables.
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
-.PHONY: help clean html linkcheck doctest
+.PHONY: help clean html linkcheck doctest tutorials
 
 all: html
 
@@ -25,6 +25,7 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/html/*
+	rm -rf $(BUILDDIR)/tutorials
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

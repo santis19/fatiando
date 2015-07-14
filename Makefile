@@ -32,8 +32,14 @@ develop:
 	$(PY) setup.py build --cython
 	pip install --no-deps --ignore-installed .
 
-docs: clean
+docs: tutorials clean
 	cd doc; make html
+
+.PHONY: tutorials
+tutorials: build
+	mkdir -p doc/tutorials
+	cp tutorials/*.ipynb doc/tutorials
+	cd doc/tutorials; python ../tools/nb_to_doc.py `ls *.ipynb`; rm *.ipynb
 
 linkcheck: clean
 	cd doc; make linkcheck

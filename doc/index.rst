@@ -101,6 +101,7 @@ Don't be afraid to ask for help getting started!
     license.rst
     install.rst
     changelog.rst
+    tutorials.rst
     api/fatiando.rst
     develop.rst
     contributors.rst

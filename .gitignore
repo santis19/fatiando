@@ -8,6 +8,7 @@ build
 doc/_build
 doc/_static/cookbook
 doc/cookbook
+doc/tutorials
 doc/fatiando*.pdf
 benchmarks/*.tmp
 benchmarks/*.profile
