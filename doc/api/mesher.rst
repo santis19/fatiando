@@ -1,9 +1,37 @@
 .. _fatiando_mesher:
 
-Meshing (``fatiando.mesher``)
-=============================
+=================================================
+``fatiando.mesher``: Geometric objects and meshes
+=================================================
 
 .. automodule:: fatiando.mesher
-   :members:
-   :show-inheritance:
-   :inherited-members:
+    :no-members:
+    :no-inherited-members:
+
+Classes
+-------
+.. currentmodule:: fatiando.mesher
+
+.. autosummary::
+
+    Polygon
+    Square
+    Prism
+    PolygonalPrism
+    Sphere
+    Tesseroid
+    SquareMesh
+    PrismMesh
+    PrismRelief
+    TesseroidMesh
+    PointGrid
+
+Functions
+----------
+.. currentmodule:: fatiando.mesher
+
+.. autosummary::
+
+    extract
+    vfilter
+    vremove
