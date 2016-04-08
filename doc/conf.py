@@ -106,6 +106,7 @@ html_theme_options = {
     'navbar_links': [
         ("Installing", "install"),
         ("Documentation", "docs"),
+        ("API", "api/fatiando"),
         ("Cookbook", "cookbook"),
         ("Developer Guide", "develop"),
         ('<i class="fa fa-github-square fa-lg" title="Source code on Github"></i>',
