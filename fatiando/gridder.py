@@ -350,7 +350,7 @@ def profile(x, y, v, point1, point2, size, extrapolate=False):
 
 
 def extrapolate_nans(x, y, v):
-    """"
+    """
     Extrapolate the NaNs or masked values in a grid INPLACE using nearest
     value.
 

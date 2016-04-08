@@ -20,7 +20,12 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.extlinks',
     'matplotlib.sphinxext.plot_directive',
+    'numpydoc',
 ]
+
+# Produce pages for each class and function
+autosummary_generate = True
+autodoc_default_flags = ['members', 'inherited-members']
 
 # Configure the inline plots from matplotlib plot_directive
 plot_formats = [("png", 90)]
@@ -106,7 +111,7 @@ html_theme_options = {
     'navbar_links': [
         ("Installing", "install"),
         ("Documentation", "docs"),
-        ("API", "api/fatiando"),
+        ("API", "api"),
         ("Cookbook", "cookbook"),
         ("Developer Guide", "develop"),
         ('<i class="fa fa-github-square fa-lg" title="Source code on Github"></i>',

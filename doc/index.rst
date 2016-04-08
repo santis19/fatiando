@@ -309,12 +309,12 @@ Read :ref:`all announcements <news>`.
     :hidden:
 
     news.rst
-    license.rst
     cite.rst
     changelog.rst
     install.rst
-    api/fatiando.rst
+    docs.rst
+    cookbook.rst
+    api.rst
     develop.rst
     contributors.rst
-    cookbook.rst
-    docs.rst
+    license.rst
