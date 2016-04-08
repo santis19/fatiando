@@ -16,6 +16,8 @@ API reference: The ``fatiando`` package
     :no-members:
     :no-inherited-members:
 
+**More details**: See :ref:`userguide_mesher`.
+
 .. currentmodule:: fatiando.mesher
 
 Objects
@@ -64,6 +66,8 @@ Misc
     :no-members:
     :no-inherited-members:
 
+**More details**: See :ref:`userguide_gridder`.
+
 .. currentmodule:: fatiando.gridder
 
 .. autosummary::
@@ -88,6 +92,9 @@ Misc
 .. automodule:: fatiando.gravmag
     :no-members:
     :no-inherited-members:
+
+**More details**: See :ref:`userguide_gravmag`.
+
 
 .. currentmodule:: fatiando.gravmag
 
