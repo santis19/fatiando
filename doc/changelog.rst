@@ -291,8 +291,8 @@ Version 0.1
 * Added module ``fatiando.seismic.wavefd`` with 2D
   Finite Difference simulations of elastic seismic waves
 * Added unit conversion functions to ``fatiando.utils``
-* Added tesseroids forward modeling ``fatiando.gravmag.tesseroid
- ``, meshing and plotting with Mayavi
+* Added tesseroids forward modeling ``fatiando.gravmag.tesseroid``
+  meshing and plotting with Mayavi
 * New ``fatiando.io`` module to fetch models and data from the
   web and convert them to useful formats (for now supports the CRUST2.0 global
   curstal model)
