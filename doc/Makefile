@@ -43,7 +43,7 @@ userguide:
 	@echo
 	@echo "Building userguide rst files."
 	@echo
-	cd userguide; python ../tools/nb_to_doc.py gravmag seismic inversion gridder mesher vis
+	bash tools/nb2rst.sh userguide/
 
 clean:
 	rm -rf $(BUILDDIR)/html/*
