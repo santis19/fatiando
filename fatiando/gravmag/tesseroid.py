@@ -223,20 +223,13 @@ def _forward_model(args):
         "below the minimum numerical threshold (1e-6 degrees or 1e-3 m). " +
         "Will compute without division. Cannot guarantee the accuracy of " +
         "the solution.")
-    # Arrays needed by the kernel. Can't allocate them inside the kernel
-    # because numba doesn't like that.
-    stack = np.empty((STACK_SIZE, 6), dtype='float')
-    lonc = np.empty(2, dtype='float')
-    sinlatc = np.empty(2, dtype='float')
-    coslatc = np.empty(2, dtype='float')
-    rc = np.empty(2)
     for tesseroid in model:
         density = _check_tesseroid(tesseroid, dens)
         if density is None:
             continue
         bounds = np.array(tesseroid.get_bounds())
-        error = func(lon, sinlat, coslat, radius, bounds, density, ratio,
-                     stack, lonc, sinlatc, coslatc, rc, result)
+        error = func(bounds, density, ratio, STACK_SIZE, lon, sinlat, coslat,
+                     radius, result)
         if error != 0:
             warnings.warn(warning_msg, RuntimeWarning)
     return result

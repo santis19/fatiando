@@ -75,6 +75,7 @@ ext_parts = [
     ['fatiando', 'seismic', '_wavefd'],
     ['fatiando', 'gravmag', '_polyprism'],
     ['fatiando', 'gravmag', '_prism'],
+    ['fatiando', 'gravmag', '_tesseroid'],
 ]
 extensions = [('.'.join(parts), os.path.join(*parts) + ext)
               for parts in ext_parts]
