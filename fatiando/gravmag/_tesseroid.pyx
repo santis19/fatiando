@@ -555,15 +555,8 @@ cdef with_rediscretization(
             distance = distance_n_size(w, e, s, n, top, bottom, lon, sinlat,
                                        coslat, radius, &dlon, &dlat, &dr)
             # Check which dimensions I have to divide
-            nlon = 1
-            nlat = 1
-            nr = 1
-            if distance < ratio*dlon:
-                nlon = 2
-            if distance < ratio*dlat:
-                nlat = 2
-            if distance < ratio*dr:
-                nr = 2
+            error = divisions(distance, dlon, dlat, dr, ratio, &nlon,
+                              &nlat, &nr)
             if nlon == 1 and nlat == 1 and nr == 1:
                 # Put the nodes in the current range
                 scale = scale_nodes(w, e, s, n, top, bottom, lonc, sinlatc,
@@ -610,3 +603,28 @@ cdef inline double distance_n_size(
     dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
     dr[0] = top - bottom
     return distance
+
+
+cdef inline int divisions(double distance, double Llon, double Llat, double Lr,
+                          double ratio, int* nlon, int* nlat, int* nr):
+    "How many divisions should be made per dimension"
+    nlon[0] = 1
+    nlat[0] = 1
+    nr[0] = 1
+    error = 0
+    if distance <= ratio*Llon:
+        if Llon <= 0.1:  # in meters. ~1e-6  degrees
+            error = -1
+        else:
+            nlon[0] = 2
+    if distance <= ratio*Llat:
+        if Llat <= 0.1:  # in meters. ~1e-6  degrees
+            error = -1
+        else:
+            nlat[0] = 2
+    if distance <= ratio*Lr:
+        if Lr <= 1e3:
+            error = -1
+        else:
+            nr[0] = 2
+    return error
