@@ -3213,12 +3213,26 @@ static PyObject *__pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(PyArrayOb
  *                 res += kernel(lon, sinlat, coslat, radius, scale, lonc,
  *                               sinlatc, coslatc, rc)
  *         result[l] += density*res             # <<<<<<<<<<<<<<
- * 
+ *     return error_code
  * 
  */
     __pyx_t_51 = __pyx_v_l;
     *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_result.rcbuffer->pybuffer.buf, __pyx_t_51, __pyx_pybuffernd_result.diminfo[0].strides) += (__pyx_v_density * __pyx_v_res);
   }
+
+  /* "fatiando/gravmag/_tesseroid.pyx":112
+ *                               sinlatc, coslatc, rc)
+ *         result[l] += density*res
+ *     return error_code             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error_code); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
   /* "fatiando/gravmag/_tesseroid.pyx":34
  * @cython.boundscheck(False)
@@ -3229,8 +3243,6 @@ static PyObject *__pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(PyArrayOb
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -3272,7 +3284,7 @@ static PyObject *__pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(PyArrayOb
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":115
+/* "fatiando/gravmag/_tesseroid.pyx":116
  * 
  * @cython.cdivision(True)
  * cdef inline double distance_n_size(             # <<<<<<<<<<<<<<
@@ -3293,7 +3305,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("distance_n_size", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":122
+  /* "fatiando/gravmag/_tesseroid.pyx":123
  *         double rt, rtop, lont, latt, sinlatt, coslatt, cospsi, distance
  *     # Calculate the distance to the observation point
  *     rt = 0.5*(top + bottom) + MEAN_EARTH_RADIUS             # <<<<<<<<<<<<<<
@@ -3302,7 +3314,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_rt = ((0.5 * (__pyx_v_top + __pyx_v_bottom)) + __pyx_v_8fatiando_7gravmag_10_tesseroid_MEAN_EARTH_RADIUS);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":123
+  /* "fatiando/gravmag/_tesseroid.pyx":124
  *     # Calculate the distance to the observation point
  *     rt = 0.5*(top + bottom) + MEAN_EARTH_RADIUS
  *     lont = d2r*0.5*(w + e)             # <<<<<<<<<<<<<<
@@ -3311,7 +3323,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_lont = ((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * 0.5) * (__pyx_v_w + __pyx_v_e));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":124
+  /* "fatiando/gravmag/_tesseroid.pyx":125
  *     rt = 0.5*(top + bottom) + MEAN_EARTH_RADIUS
  *     lont = d2r*0.5*(w + e)
  *     latt = d2r*0.5*(s + n)             # <<<<<<<<<<<<<<
@@ -3320,7 +3332,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_latt = ((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * 0.5) * (__pyx_v_s + __pyx_v_n));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":125
+  /* "fatiando/gravmag/_tesseroid.pyx":126
  *     lont = d2r*0.5*(w + e)
  *     latt = d2r*0.5*(s + n)
  *     sinlatt = sin(latt)             # <<<<<<<<<<<<<<
@@ -3329,7 +3341,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_sinlatt = sin(__pyx_v_latt);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":126
+  /* "fatiando/gravmag/_tesseroid.pyx":127
  *     latt = d2r*0.5*(s + n)
  *     sinlatt = sin(latt)
  *     coslatt = cos(latt)             # <<<<<<<<<<<<<<
@@ -3338,7 +3350,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_coslatt = cos(__pyx_v_latt);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":127
+  /* "fatiando/gravmag/_tesseroid.pyx":128
  *     sinlatt = sin(latt)
  *     coslatt = cos(latt)
  *     cospsi = sinlat*sinlatt + coslat*coslatt*cos(lon - lont)             # <<<<<<<<<<<<<<
@@ -3347,7 +3359,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_cospsi = ((__pyx_v_sinlat * __pyx_v_sinlatt) + ((__pyx_v_coslat * __pyx_v_coslatt) * cos((__pyx_v_lon - __pyx_v_lont))));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":128
+  /* "fatiando/gravmag/_tesseroid.pyx":129
  *     coslatt = cos(latt)
  *     cospsi = sinlat*sinlatt + coslat*coslatt*cos(lon - lont)
  *     distance = sqrt(radius**2 + rt**2 - 2*radius*rt*cospsi)             # <<<<<<<<<<<<<<
@@ -3356,7 +3368,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_distance = sqrt(((pow(__pyx_v_radius, 2.0) + pow(__pyx_v_rt, 2.0)) - (((2.0 * __pyx_v_radius) * __pyx_v_rt) * __pyx_v_cospsi)));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":130
+  /* "fatiando/gravmag/_tesseroid.pyx":131
  *     distance = sqrt(radius**2 + rt**2 - 2*radius*rt*cospsi)
  *     # Calculate the dimensions of the tesseroid in meters
  *     rtop = top + MEAN_EARTH_RADIUS             # <<<<<<<<<<<<<<
@@ -3365,7 +3377,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   __pyx_v_rtop = (__pyx_v_top + __pyx_v_8fatiando_7gravmag_10_tesseroid_MEAN_EARTH_RADIUS);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":131
+  /* "fatiando/gravmag/_tesseroid.pyx":132
  *     # Calculate the dimensions of the tesseroid in meters
  *     rtop = top + MEAN_EARTH_RADIUS
  *     dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))             # <<<<<<<<<<<<<<
@@ -3374,7 +3386,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   (__pyx_v_dlon[0]) = (__pyx_v_rtop * acos((pow(__pyx_v_sinlatt, 2.0) + (pow(__pyx_v_coslatt, 2.0) * cos((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * (__pyx_v_e - __pyx_v_w)))))));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":132
+  /* "fatiando/gravmag/_tesseroid.pyx":133
  *     rtop = top + MEAN_EARTH_RADIUS
  *     dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
  *     dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))             # <<<<<<<<<<<<<<
@@ -3383,7 +3395,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   (__pyx_v_dlat[0]) = (__pyx_v_rtop * acos(((sin((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * __pyx_v_n)) * sin((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * __pyx_v_s))) + (cos((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * __pyx_v_n)) * cos((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * __pyx_v_s))))));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":133
+  /* "fatiando/gravmag/_tesseroid.pyx":134
  *     dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
  *     dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
  *     dr[0] = top - bottom             # <<<<<<<<<<<<<<
@@ -3392,7 +3404,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
  */
   (__pyx_v_dr[0]) = (__pyx_v_top - __pyx_v_bottom);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":134
+  /* "fatiando/gravmag/_tesseroid.pyx":135
  *     dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
  *     dr[0] = top - bottom
  *     return distance             # <<<<<<<<<<<<<<
@@ -3402,7 +3414,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
   __pyx_r = __pyx_v_distance;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":115
+  /* "fatiando/gravmag/_tesseroid.pyx":116
  * 
  * @cython.cdivision(True)
  * cdef inline double distance_n_size(             # <<<<<<<<<<<<<<
@@ -3416,7 +3428,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_distance_n_s
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":137
+/* "fatiando/gravmag/_tesseroid.pyx":138
  * 
  * 
  * cdef inline int divisions(double distance, double Llon, double Llat, double Lr,             # <<<<<<<<<<<<<<
@@ -3431,7 +3443,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("divisions", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":141
+  /* "fatiando/gravmag/_tesseroid.pyx":142
  *                           int* new_cells):
  *     "How many divisions should be made per dimension"
  *     nlon[0] = 1             # <<<<<<<<<<<<<<
@@ -3440,7 +3452,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   (__pyx_v_nlon[0]) = 1;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":142
+  /* "fatiando/gravmag/_tesseroid.pyx":143
  *     "How many divisions should be made per dimension"
  *     nlon[0] = 1
  *     nlat[0] = 1             # <<<<<<<<<<<<<<
@@ -3449,7 +3461,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   (__pyx_v_nlat[0]) = 1;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":143
+  /* "fatiando/gravmag/_tesseroid.pyx":144
  *     nlon[0] = 1
  *     nlat[0] = 1
  *     nr[0] = 1             # <<<<<<<<<<<<<<
@@ -3458,7 +3470,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   (__pyx_v_nr[0]) = 1;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":144
+  /* "fatiando/gravmag/_tesseroid.pyx":145
  *     nlat[0] = 1
  *     nr[0] = 1
  *     error = 0             # <<<<<<<<<<<<<<
@@ -3467,7 +3479,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   __pyx_v_error = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":145
+  /* "fatiando/gravmag/_tesseroid.pyx":146
  *     nr[0] = 1
  *     error = 0
  *     if distance <= ratio*Llon:             # <<<<<<<<<<<<<<
@@ -3477,7 +3489,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   __pyx_t_1 = ((__pyx_v_distance <= (__pyx_v_ratio * __pyx_v_Llon)) != 0);
   if (__pyx_t_1) {
 
-    /* "fatiando/gravmag/_tesseroid.pyx":146
+    /* "fatiando/gravmag/_tesseroid.pyx":147
  *     error = 0
  *     if distance <= ratio*Llon:
  *         if Llon <= 0.1:  # in meters. ~1e-6  degrees             # <<<<<<<<<<<<<<
@@ -3487,7 +3499,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     __pyx_t_1 = ((__pyx_v_Llon <= 0.1) != 0);
     if (__pyx_t_1) {
 
-      /* "fatiando/gravmag/_tesseroid.pyx":147
+      /* "fatiando/gravmag/_tesseroid.pyx":148
  *     if distance <= ratio*Llon:
  *         if Llon <= 0.1:  # in meters. ~1e-6  degrees
  *             error = -1             # <<<<<<<<<<<<<<
@@ -3496,7 +3508,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
       __pyx_v_error = -1L;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":146
+      /* "fatiando/gravmag/_tesseroid.pyx":147
  *     error = 0
  *     if distance <= ratio*Llon:
  *         if Llon <= 0.1:  # in meters. ~1e-6  degrees             # <<<<<<<<<<<<<<
@@ -3506,7 +3518,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
       goto __pyx_L4;
     }
 
-    /* "fatiando/gravmag/_tesseroid.pyx":149
+    /* "fatiando/gravmag/_tesseroid.pyx":150
  *             error = -1
  *         else:
  *             nlon[0] = 2             # <<<<<<<<<<<<<<
@@ -3518,7 +3530,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     }
     __pyx_L4:;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":145
+    /* "fatiando/gravmag/_tesseroid.pyx":146
  *     nr[0] = 1
  *     error = 0
  *     if distance <= ratio*Llon:             # <<<<<<<<<<<<<<
@@ -3527,7 +3539,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":150
+  /* "fatiando/gravmag/_tesseroid.pyx":151
  *         else:
  *             nlon[0] = 2
  *     if distance <= ratio*Llat:             # <<<<<<<<<<<<<<
@@ -3537,7 +3549,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   __pyx_t_1 = ((__pyx_v_distance <= (__pyx_v_ratio * __pyx_v_Llat)) != 0);
   if (__pyx_t_1) {
 
-    /* "fatiando/gravmag/_tesseroid.pyx":151
+    /* "fatiando/gravmag/_tesseroid.pyx":152
  *             nlon[0] = 2
  *     if distance <= ratio*Llat:
  *         if Llat <= 0.1:  # in meters. ~1e-6  degrees             # <<<<<<<<<<<<<<
@@ -3547,7 +3559,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     __pyx_t_1 = ((__pyx_v_Llat <= 0.1) != 0);
     if (__pyx_t_1) {
 
-      /* "fatiando/gravmag/_tesseroid.pyx":152
+      /* "fatiando/gravmag/_tesseroid.pyx":153
  *     if distance <= ratio*Llat:
  *         if Llat <= 0.1:  # in meters. ~1e-6  degrees
  *             error = -1             # <<<<<<<<<<<<<<
@@ -3556,7 +3568,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
       __pyx_v_error = -1L;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":151
+      /* "fatiando/gravmag/_tesseroid.pyx":152
  *             nlon[0] = 2
  *     if distance <= ratio*Llat:
  *         if Llat <= 0.1:  # in meters. ~1e-6  degrees             # <<<<<<<<<<<<<<
@@ -3566,7 +3578,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
       goto __pyx_L6;
     }
 
-    /* "fatiando/gravmag/_tesseroid.pyx":154
+    /* "fatiando/gravmag/_tesseroid.pyx":155
  *             error = -1
  *         else:
  *             nlat[0] = 2             # <<<<<<<<<<<<<<
@@ -3578,7 +3590,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     }
     __pyx_L6:;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":150
+    /* "fatiando/gravmag/_tesseroid.pyx":151
  *         else:
  *             nlon[0] = 2
  *     if distance <= ratio*Llat:             # <<<<<<<<<<<<<<
@@ -3587,7 +3599,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":155
+  /* "fatiando/gravmag/_tesseroid.pyx":156
  *         else:
  *             nlat[0] = 2
  *     if distance <= ratio*Lr:             # <<<<<<<<<<<<<<
@@ -3597,7 +3609,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   __pyx_t_1 = ((__pyx_v_distance <= (__pyx_v_ratio * __pyx_v_Lr)) != 0);
   if (__pyx_t_1) {
 
-    /* "fatiando/gravmag/_tesseroid.pyx":156
+    /* "fatiando/gravmag/_tesseroid.pyx":157
  *             nlat[0] = 2
  *     if distance <= ratio*Lr:
  *         if Lr <= 1e3:             # <<<<<<<<<<<<<<
@@ -3607,7 +3619,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     __pyx_t_1 = ((__pyx_v_Lr <= 1e3) != 0);
     if (__pyx_t_1) {
 
-      /* "fatiando/gravmag/_tesseroid.pyx":157
+      /* "fatiando/gravmag/_tesseroid.pyx":158
  *     if distance <= ratio*Lr:
  *         if Lr <= 1e3:
  *             error = -1             # <<<<<<<<<<<<<<
@@ -3616,7 +3628,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
       __pyx_v_error = -1L;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":156
+      /* "fatiando/gravmag/_tesseroid.pyx":157
  *             nlat[0] = 2
  *     if distance <= ratio*Lr:
  *         if Lr <= 1e3:             # <<<<<<<<<<<<<<
@@ -3626,7 +3638,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
       goto __pyx_L8;
     }
 
-    /* "fatiando/gravmag/_tesseroid.pyx":159
+    /* "fatiando/gravmag/_tesseroid.pyx":160
  *             error = -1
  *         else:
  *             nr[0] = 2             # <<<<<<<<<<<<<<
@@ -3638,7 +3650,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
     }
     __pyx_L8:;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":155
+    /* "fatiando/gravmag/_tesseroid.pyx":156
  *         else:
  *             nlat[0] = 2
  *     if distance <= ratio*Lr:             # <<<<<<<<<<<<<<
@@ -3647,7 +3659,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":160
+  /* "fatiando/gravmag/_tesseroid.pyx":161
  *         else:
  *             nr[0] = 2
  *     new_cells[0] = nlon[0]*nlat[0]*nr[0]             # <<<<<<<<<<<<<<
@@ -3656,7 +3668,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
  */
   (__pyx_v_new_cells[0]) = (((__pyx_v_nlon[0]) * (__pyx_v_nlat[0])) * (__pyx_v_nr[0]));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":161
+  /* "fatiando/gravmag/_tesseroid.pyx":162
  *             nr[0] = 2
  *     new_cells[0] = nlon[0]*nlat[0]*nr[0]
  *     return error             # <<<<<<<<<<<<<<
@@ -3666,7 +3678,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   __pyx_r = __pyx_v_error;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":137
+  /* "fatiando/gravmag/_tesseroid.pyx":138
  * 
  * 
  * cdef inline int divisions(double distance, double Llon, double Llat, double Lr,             # <<<<<<<<<<<<<<
@@ -3680,7 +3692,7 @@ static CYTHON_INLINE int __pyx_f_8fatiando_7gravmag_10_tesseroid_divisions(doubl
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":166
+/* "fatiando/gravmag/_tesseroid.pyx":167
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline double scale_nodes(             # <<<<<<<<<<<<<<
@@ -3710,7 +3722,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
   size_t __pyx_t_8;
   __Pyx_RefNannySetupContext("scale_nodes", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":176
+  /* "fatiando/gravmag/_tesseroid.pyx":177
  *         double dlon, dlat, dr, mlon, mlat, mr, scale, latc
  *         unsigned int i
  *     dlon = e - w             # <<<<<<<<<<<<<<
@@ -3719,7 +3731,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_dlon = (__pyx_v_e - __pyx_v_w);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":177
+  /* "fatiando/gravmag/_tesseroid.pyx":178
  *         unsigned int i
  *     dlon = e - w
  *     dlat = n - s             # <<<<<<<<<<<<<<
@@ -3728,7 +3740,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_dlat = (__pyx_v_n - __pyx_v_s);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":178
+  /* "fatiando/gravmag/_tesseroid.pyx":179
  *     dlon = e - w
  *     dlat = n - s
  *     dr = top - bottom             # <<<<<<<<<<<<<<
@@ -3737,7 +3749,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_dr = (__pyx_v_top - __pyx_v_bottom);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":179
+  /* "fatiando/gravmag/_tesseroid.pyx":180
  *     dlat = n - s
  *     dr = top - bottom
  *     mlon = 0.5*(e + w)             # <<<<<<<<<<<<<<
@@ -3746,7 +3758,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_mlon = (0.5 * (__pyx_v_e + __pyx_v_w));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":180
+  /* "fatiando/gravmag/_tesseroid.pyx":181
  *     dr = top - bottom
  *     mlon = 0.5*(e + w)
  *     mlat = 0.5*(n + s)             # <<<<<<<<<<<<<<
@@ -3755,7 +3767,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_mlat = (0.5 * (__pyx_v_n + __pyx_v_s));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":181
+  /* "fatiando/gravmag/_tesseroid.pyx":182
  *     mlon = 0.5*(e + w)
  *     mlat = 0.5*(n + s)
  *     mr = 0.5*(top + bottom + 2.*MEAN_EARTH_RADIUS)             # <<<<<<<<<<<<<<
@@ -3764,7 +3776,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_mr = (0.5 * ((__pyx_v_top + __pyx_v_bottom) + (2. * __pyx_v_8fatiando_7gravmag_10_tesseroid_MEAN_EARTH_RADIUS)));
 
-  /* "fatiando/gravmag/_tesseroid.pyx":183
+  /* "fatiando/gravmag/_tesseroid.pyx":184
  *     mr = 0.5*(top + bottom + 2.*MEAN_EARTH_RADIUS)
  *     # Scale the GLQ nodes to the integration limits
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -3774,30 +3786,30 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":184
+    /* "fatiando/gravmag/_tesseroid.pyx":185
  *     # Scale the GLQ nodes to the integration limits
  *     for i in range(2):
  *         lonc[i] = d2r*(0.5*dlon*nodes[i] + mlon)             # <<<<<<<<<<<<<<
  *         latc = d2r*(0.5*dlat*nodes[i] + mlat)
  *         sinlatc[i] = sin(latc)
  */
-    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 184, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 185, __pyx_L1_error) }
     __pyx_t_2 = __pyx_v_i;
     __pyx_t_3 = __pyx_v_i;
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_3)) )) = (__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * (((0.5 * __pyx_v_dlon) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.data) + __pyx_t_2)) )))) + __pyx_v_mlon));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":185
+    /* "fatiando/gravmag/_tesseroid.pyx":186
  *     for i in range(2):
  *         lonc[i] = d2r*(0.5*dlon*nodes[i] + mlon)
  *         latc = d2r*(0.5*dlat*nodes[i] + mlat)             # <<<<<<<<<<<<<<
  *         sinlatc[i] = sin(latc)
  *         coslatc[i] = cos(latc)
  */
-    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 185, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 186, __pyx_L1_error) }
     __pyx_t_4 = __pyx_v_i;
     __pyx_v_latc = (__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * (((0.5 * __pyx_v_dlat) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.data) + __pyx_t_4)) )))) + __pyx_v_mlat));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":186
+    /* "fatiando/gravmag/_tesseroid.pyx":187
  *         lonc[i] = d2r*(0.5*dlon*nodes[i] + mlon)
  *         latc = d2r*(0.5*dlat*nodes[i] + mlat)
  *         sinlatc[i] = sin(latc)             # <<<<<<<<<<<<<<
@@ -3807,7 +3819,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
     __pyx_t_5 = __pyx_v_i;
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_5)) )) = sin(__pyx_v_latc);
 
-    /* "fatiando/gravmag/_tesseroid.pyx":187
+    /* "fatiando/gravmag/_tesseroid.pyx":188
  *         latc = d2r*(0.5*dlat*nodes[i] + mlat)
  *         sinlatc[i] = sin(latc)
  *         coslatc[i] = cos(latc)             # <<<<<<<<<<<<<<
@@ -3817,20 +3829,20 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
     __pyx_t_6 = __pyx_v_i;
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_6)) )) = cos(__pyx_v_latc);
 
-    /* "fatiando/gravmag/_tesseroid.pyx":188
+    /* "fatiando/gravmag/_tesseroid.pyx":189
  *         sinlatc[i] = sin(latc)
  *         coslatc[i] = cos(latc)
  *         rc[i] = (0.5*dr*nodes[i] + mr)             # <<<<<<<<<<<<<<
  *     scale = d2r*dlon*d2r*dlat*dr*0.125
  *     return scale
  */
-    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 188, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.memview)) { __Pyx_RaiseUnboundLocalError("nodes"); __PYX_ERR(0, 189, __pyx_L1_error) }
     __pyx_t_7 = __pyx_v_i;
     __pyx_t_8 = __pyx_v_i;
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )) = (((0.5 * __pyx_v_dr) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_8fatiando_7gravmag_10_tesseroid_nodes.data) + __pyx_t_7)) )))) + __pyx_v_mr);
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":189
+  /* "fatiando/gravmag/_tesseroid.pyx":190
  *         coslatc[i] = cos(latc)
  *         rc[i] = (0.5*dr*nodes[i] + mr)
  *     scale = d2r*dlon*d2r*dlat*dr*0.125             # <<<<<<<<<<<<<<
@@ -3839,7 +3851,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
  */
   __pyx_v_scale = (((((__pyx_v_8fatiando_7gravmag_10_tesseroid_d2r * __pyx_v_dlon) * __pyx_v_8fatiando_7gravmag_10_tesseroid_d2r) * __pyx_v_dlat) * __pyx_v_dr) * 0.125);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":190
+  /* "fatiando/gravmag/_tesseroid.pyx":191
  *         rc[i] = (0.5*dr*nodes[i] + mr)
  *     scale = d2r*dlon*d2r*dlat*dr*0.125
  *     return scale             # <<<<<<<<<<<<<<
@@ -3849,7 +3861,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
   __pyx_r = __pyx_v_scale;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":166
+  /* "fatiando/gravmag/_tesseroid.pyx":167
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline double scale_nodes(             # <<<<<<<<<<<<<<
@@ -3866,7 +3878,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_scale_nodes(
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":195
+/* "fatiando/gravmag/_tesseroid.pyx":196
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def potential(             # <<<<<<<<<<<<<<
@@ -3918,46 +3930,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_1potential(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 1); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 1); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 2); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 2); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 3); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 3); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 4); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 4); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 5); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 5); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 6); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 6); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 7); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 7); __PYX_ERR(0, 196, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 8); __PYX_ERR(0, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, 8); __PYX_ERR(0, 196, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "potential") < 0)) __PYX_ERR(0, 195, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "potential") < 0)) __PYX_ERR(0, 196, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -3973,9 +3985,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_1potential(PyObject *_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 197, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -3984,18 +3996,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_1potential(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 195, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("potential", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 196, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.potential", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 196, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 200, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 201, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 202, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 203, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 204, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 197, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 202, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 203, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 204, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 205, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_potential(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -4052,49 +4064,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_potential(CYTHON_UNUSE
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":209
+  /* "fatiando/gravmag/_tesseroid.pyx":210
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelV)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":211
+  /* "fatiando/gravmag/_tesseroid.pyx":212
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelV)
  *     return error             # <<<<<<<<<<<<<<
@@ -4102,13 +4114,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_potential(CYTHON_UNUSE
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":195
+  /* "fatiando/gravmag/_tesseroid.pyx":196
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def potential(             # <<<<<<<<<<<<<<
@@ -4146,7 +4158,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_potential(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":217
+/* "fatiando/gravmag/_tesseroid.pyx":218
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelV(             # <<<<<<<<<<<<<<
@@ -4178,7 +4190,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
   size_t __pyx_t_10;
   __Pyx_RefNannySetupContext("kernelV", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":225
+  /* "fatiando/gravmag/_tesseroid.pyx":226
  *         double kappa, r_sqr, coslon, l_sqr, cospsi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -4187,7 +4199,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":226
+  /* "fatiando/gravmag/_tesseroid.pyx":227
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -4196,7 +4208,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":227
+  /* "fatiando/gravmag/_tesseroid.pyx":228
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -4206,7 +4218,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":228
+    /* "fatiando/gravmag/_tesseroid.pyx":229
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -4216,7 +4228,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":229
+    /* "fatiando/gravmag/_tesseroid.pyx":230
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -4226,7 +4238,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":230
+      /* "fatiando/gravmag/_tesseroid.pyx":231
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -4237,7 +4249,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":231
+      /* "fatiando/gravmag/_tesseroid.pyx":232
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -4247,7 +4259,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
       for (__pyx_t_6 = 0; __pyx_t_6 < 2; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":232
+        /* "fatiando/gravmag/_tesseroid.pyx":233
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -4258,7 +4270,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
         __pyx_t_8 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_7)) ))), 2.0)) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":233
+        /* "fatiando/gravmag/_tesseroid.pyx":234
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]             # <<<<<<<<<<<<<<
@@ -4269,7 +4281,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
         __pyx_t_10 = __pyx_v_j;
         __pyx_v_kappa = (pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_10)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":234
+        /* "fatiando/gravmag/_tesseroid.pyx":235
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa/sqrt(l_sqr)             # <<<<<<<<<<<<<<
@@ -4281,7 +4293,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":235
+  /* "fatiando/gravmag/_tesseroid.pyx":236
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa/sqrt(l_sqr)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -4291,7 +4303,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":217
+  /* "fatiando/gravmag/_tesseroid.pyx":218
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelV(             # <<<<<<<<<<<<<<
@@ -4305,7 +4317,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelV(doub
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":240
+/* "fatiando/gravmag/_tesseroid.pyx":241
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gx(             # <<<<<<<<<<<<<<
@@ -4357,46 +4369,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_3gx(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 1); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 1); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 2); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 2); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 3); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 3); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 4); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 4); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 5); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 5); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 6); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 6); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 7); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 7); __PYX_ERR(0, 241, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 8); __PYX_ERR(0, 240, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, 8); __PYX_ERR(0, 241, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gx") < 0)) __PYX_ERR(0, 240, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gx") < 0)) __PYX_ERR(0, 241, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -4412,9 +4424,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_3gx(PyObject *__pyx_se
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 242, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -4423,18 +4435,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_3gx(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 240, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gx", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 241, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 241, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 245, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 246, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 247, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 248, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 249, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 242, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 246, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 247, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 248, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 249, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 250, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_2gx(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -4491,49 +4503,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_2gx(CYTHON_UNUSED PyOb
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 241, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":254
+  /* "fatiando/gravmag/_tesseroid.pyx":255
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelx)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":256
+  /* "fatiando/gravmag/_tesseroid.pyx":257
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelx)
  *     return error             # <<<<<<<<<<<<<<
@@ -4541,13 +4553,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_2gx(CYTHON_UNUSED PyOb
  * @cython.boundscheck(False)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":240
+  /* "fatiando/gravmag/_tesseroid.pyx":241
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gx(             # <<<<<<<<<<<<<<
@@ -4585,7 +4597,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_2gx(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":261
+/* "fatiando/gravmag/_tesseroid.pyx":262
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelx(             # <<<<<<<<<<<<<<
@@ -4621,7 +4633,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
   size_t __pyx_t_13;
   __Pyx_RefNannySetupContext("kernelx", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":269
+  /* "fatiando/gravmag/_tesseroid.pyx":270
  *         double kappa, r_sqr, coslon, kphi, l_sqr, cospsi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -4630,7 +4642,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":270
+  /* "fatiando/gravmag/_tesseroid.pyx":271
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -4639,7 +4651,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":271
+  /* "fatiando/gravmag/_tesseroid.pyx":272
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -4649,7 +4661,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":272
+    /* "fatiando/gravmag/_tesseroid.pyx":273
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -4659,7 +4671,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":273
+    /* "fatiando/gravmag/_tesseroid.pyx":274
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -4669,7 +4681,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":274
+      /* "fatiando/gravmag/_tesseroid.pyx":275
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -4680,7 +4692,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_kphi = ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) - ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":275
+      /* "fatiando/gravmag/_tesseroid.pyx":276
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -4691,7 +4703,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
       __pyx_t_7 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_6)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_7)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":276
+      /* "fatiando/gravmag/_tesseroid.pyx":277
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -4701,7 +4713,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
       for (__pyx_t_8 = 0; __pyx_t_8 < 2; __pyx_t_8+=1) {
         __pyx_v_k = __pyx_t_8;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":277
+        /* "fatiando/gravmag/_tesseroid.pyx":278
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -4712,7 +4724,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
         __pyx_t_10 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0)) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":278
+        /* "fatiando/gravmag/_tesseroid.pyx":279
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]             # <<<<<<<<<<<<<<
@@ -4723,7 +4735,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
         __pyx_t_12 = __pyx_v_j;
         __pyx_v_kappa = (pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_11)) ))), 2.0) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_12)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":279
+        /* "fatiando/gravmag/_tesseroid.pyx":280
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*rc[k]*kphi/(l_sqr**1.5)             # <<<<<<<<<<<<<<
@@ -4736,7 +4748,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":280
+  /* "fatiando/gravmag/_tesseroid.pyx":281
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*rc[k]*kphi/(l_sqr**1.5)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -4746,7 +4758,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":261
+  /* "fatiando/gravmag/_tesseroid.pyx":262
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelx(             # <<<<<<<<<<<<<<
@@ -4760,7 +4772,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelx(doub
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":285
+/* "fatiando/gravmag/_tesseroid.pyx":286
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gy(             # <<<<<<<<<<<<<<
@@ -4812,46 +4824,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_5gy(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 1); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 1); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 2); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 2); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 3); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 3); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 4); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 4); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 5); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 5); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 6); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 6); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 7); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 7); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 8); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, 8); __PYX_ERR(0, 286, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gy") < 0)) __PYX_ERR(0, 285, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gy") < 0)) __PYX_ERR(0, 286, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -4867,9 +4879,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_5gy(PyObject *__pyx_se
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 287, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 290, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -4878,18 +4890,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_5gy(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 285, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 286, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 286, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 290, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 291, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 292, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 293, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 294, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 287, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 291, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 292, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 293, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 294, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 295, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_4gy(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -4946,49 +4958,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_4gy(CYTHON_UNUSED PyOb
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 286, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":299
+  /* "fatiando/gravmag/_tesseroid.pyx":300
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernely)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":301
+  /* "fatiando/gravmag/_tesseroid.pyx":302
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernely)
  *     return error             # <<<<<<<<<<<<<<
@@ -4996,13 +5008,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_4gy(CYTHON_UNUSED PyOb
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":285
+  /* "fatiando/gravmag/_tesseroid.pyx":286
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gy(             # <<<<<<<<<<<<<<
@@ -5040,7 +5052,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_4gy(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":307
+/* "fatiando/gravmag/_tesseroid.pyx":308
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernely(             # <<<<<<<<<<<<<<
@@ -5076,7 +5088,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
   size_t __pyx_t_13;
   __Pyx_RefNannySetupContext("kernely", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":315
+  /* "fatiando/gravmag/_tesseroid.pyx":316
  *         double kappa, r_sqr, coslon, sinlon, l_sqr, cospsi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -5085,7 +5097,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":316
+  /* "fatiando/gravmag/_tesseroid.pyx":317
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -5094,7 +5106,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":317
+  /* "fatiando/gravmag/_tesseroid.pyx":318
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -5104,7 +5116,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":318
+    /* "fatiando/gravmag/_tesseroid.pyx":319
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -5114,7 +5126,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":319
+    /* "fatiando/gravmag/_tesseroid.pyx":320
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         sinlon = sin(lonc[i] - lon)             # <<<<<<<<<<<<<<
@@ -5124,7 +5136,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
     __pyx_t_3 = __pyx_v_i;
     __pyx_v_sinlon = sin(((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_3)) ))) - __pyx_v_lon));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":320
+    /* "fatiando/gravmag/_tesseroid.pyx":321
  *         coslon = cos(lon - lonc[i])
  *         sinlon = sin(lonc[i] - lon)
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -5134,7 +5146,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
     for (__pyx_t_4 = 0; __pyx_t_4 < 2; __pyx_t_4+=1) {
       __pyx_v_j = __pyx_t_4;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":321
+      /* "fatiando/gravmag/_tesseroid.pyx":322
  *         sinlon = sin(lonc[i] - lon)
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -5145,7 +5157,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
       __pyx_t_6 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_5)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_6)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":322
+      /* "fatiando/gravmag/_tesseroid.pyx":323
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -5155,7 +5167,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
       for (__pyx_t_7 = 0; __pyx_t_7 < 2; __pyx_t_7+=1) {
         __pyx_v_k = __pyx_t_7;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":323
+        /* "fatiando/gravmag/_tesseroid.pyx":324
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -5166,7 +5178,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
         __pyx_t_9 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) ))), 2.0)) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":324
+        /* "fatiando/gravmag/_tesseroid.pyx":325
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]             # <<<<<<<<<<<<<<
@@ -5177,7 +5189,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
         __pyx_t_11 = __pyx_v_j;
         __pyx_v_kappa = (pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) ))), 2.0) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_11)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":325
+        /* "fatiando/gravmag/_tesseroid.pyx":326
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*(rc[k]*coslatc[j]*sinlon/(l_sqr**1.5))             # <<<<<<<<<<<<<<
@@ -5191,7 +5203,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":326
+  /* "fatiando/gravmag/_tesseroid.pyx":327
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*(rc[k]*coslatc[j]*sinlon/(l_sqr**1.5))
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -5201,7 +5213,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":307
+  /* "fatiando/gravmag/_tesseroid.pyx":308
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernely(             # <<<<<<<<<<<<<<
@@ -5215,7 +5227,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernely(doub
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":331
+/* "fatiando/gravmag/_tesseroid.pyx":332
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gz(             # <<<<<<<<<<<<<<
@@ -5267,46 +5279,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_7gz(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 1); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 1); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 2); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 2); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 3); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 3); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 4); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 4); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 5); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 5); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 6); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 6); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 7); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 7); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 8); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, 8); __PYX_ERR(0, 332, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gz") < 0)) __PYX_ERR(0, 331, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gz") < 0)) __PYX_ERR(0, 332, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -5322,9 +5334,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_7gz(PyObject *__pyx_se
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 333, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 334, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 335, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 334, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 335, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 336, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -5333,18 +5345,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_7gz(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 331, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 332, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gz", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 332, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 336, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 337, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 338, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 339, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 340, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 333, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 337, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 338, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 339, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 340, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 341, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_6gz(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -5401,49 +5413,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_6gz(CYTHON_UNUSED PyOb
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 331, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 332, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":345
+  /* "fatiando/gravmag/_tesseroid.pyx":346
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelz)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":347
+  /* "fatiando/gravmag/_tesseroid.pyx":348
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelz)
  *     return error             # <<<<<<<<<<<<<<
@@ -5451,13 +5463,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_6gz(CYTHON_UNUSED PyOb
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":331
+  /* "fatiando/gravmag/_tesseroid.pyx":332
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gz(             # <<<<<<<<<<<<<<
@@ -5495,7 +5507,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_6gz(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":353
+/* "fatiando/gravmag/_tesseroid.pyx":354
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelz(             # <<<<<<<<<<<<<<
@@ -5528,7 +5540,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
   size_t __pyx_t_11;
   __Pyx_RefNannySetupContext("kernelz", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":361
+  /* "fatiando/gravmag/_tesseroid.pyx":362
  *         double kappa, r_sqr, coslon, l_sqr, cospsi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -5537,7 +5549,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":362
+  /* "fatiando/gravmag/_tesseroid.pyx":363
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -5546,7 +5558,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":363
+  /* "fatiando/gravmag/_tesseroid.pyx":364
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -5556,7 +5568,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":364
+    /* "fatiando/gravmag/_tesseroid.pyx":365
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -5566,7 +5578,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":365
+    /* "fatiando/gravmag/_tesseroid.pyx":366
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -5576,7 +5588,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":366
+      /* "fatiando/gravmag/_tesseroid.pyx":367
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -5587,7 +5599,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":367
+      /* "fatiando/gravmag/_tesseroid.pyx":368
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -5597,7 +5609,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
       for (__pyx_t_6 = 0; __pyx_t_6 < 2; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":368
+        /* "fatiando/gravmag/_tesseroid.pyx":369
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -5608,23 +5620,23 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
         __pyx_t_8 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_7)) ))), 2.0)) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":369
+        /* "fatiando/gravmag/_tesseroid.pyx":370
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]             # <<<<<<<<<<<<<<
  *                 result += kappa*(rc[k]*cospsi - radius)/(l_sqr**1.5)
- *     return result*scale
+ *     # Multiply by -1 so that z is pointing down for gz and the gravity anomaly
  */
         __pyx_t_9 = __pyx_v_k;
         __pyx_t_10 = __pyx_v_j;
         __pyx_v_kappa = (pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_10)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":370
+        /* "fatiando/gravmag/_tesseroid.pyx":371
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*(rc[k]*cospsi - radius)/(l_sqr**1.5)             # <<<<<<<<<<<<<<
- *     return result*scale
- * 
+ *     # Multiply by -1 so that z is pointing down for gz and the gravity anomaly
+ *     # doesn't look inverted (ie, negative for positive density)
  */
         __pyx_t_11 = __pyx_v_k;
         __pyx_v_result = (__pyx_v_result + ((__pyx_v_kappa * (((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_11)) ))) * __pyx_v_cospsi) - __pyx_v_radius)) / pow(__pyx_v_l_sqr, 1.5)));
@@ -5632,9 +5644,18 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":371
- *                 kappa = (rc[k]**2)*coslatc[j]
- *                 result += kappa*(rc[k]*cospsi - radius)/(l_sqr**1.5)
+  /* "fatiando/gravmag/_tesseroid.pyx":374
+ *     # Multiply by -1 so that z is pointing down for gz and the gravity anomaly
+ *     # doesn't look inverted (ie, negative for positive density)
+ *     result *= -1             # <<<<<<<<<<<<<<
+ *     return result*scale
+ * 
+ */
+  __pyx_v_result = (__pyx_v_result * -1.0);
+
+  /* "fatiando/gravmag/_tesseroid.pyx":375
+ *     # doesn't look inverted (ie, negative for positive density)
+ *     result *= -1
  *     return result*scale             # <<<<<<<<<<<<<<
  * 
  * 
@@ -5642,7 +5663,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":353
+  /* "fatiando/gravmag/_tesseroid.pyx":354
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelz(             # <<<<<<<<<<<<<<
@@ -5656,7 +5677,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelz(doub
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":376
+/* "fatiando/gravmag/_tesseroid.pyx":380
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxx(             # <<<<<<<<<<<<<<
@@ -5708,46 +5729,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_9gxx(PyObject *__pyx_s
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 1); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 1); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 2); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 2); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 3); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 3); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 4); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 4); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 5); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 5); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 6); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 6); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 7); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 7); __PYX_ERR(0, 380, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 8); __PYX_ERR(0, 376, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, 8); __PYX_ERR(0, 380, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxx") < 0)) __PYX_ERR(0, 376, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxx") < 0)) __PYX_ERR(0, 380, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -5763,9 +5784,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_9gxx(PyObject *__pyx_s
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 378, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 380, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 382, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 383, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -5774,18 +5795,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_9gxx(PyObject *__pyx_s
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 376, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gxx", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 380, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gxx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 377, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 381, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 382, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 383, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 384, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 385, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 381, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 385, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 386, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 387, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 388, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 389, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_8gxx(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -5842,49 +5863,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_8gxx(CYTHON_UNUSED PyO
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 376, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 380, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":390
+  /* "fatiando/gravmag/_tesseroid.pyx":394
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelxx)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 394, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 390, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 394, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":392
+  /* "fatiando/gravmag/_tesseroid.pyx":396
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelxx)
  *     return error             # <<<<<<<<<<<<<<
@@ -5892,13 +5913,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_8gxx(CYTHON_UNUSED PyO
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":376
+  /* "fatiando/gravmag/_tesseroid.pyx":380
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxx(             # <<<<<<<<<<<<<<
@@ -5936,7 +5957,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_8gxx(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":398
+/* "fatiando/gravmag/_tesseroid.pyx":402
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxx(             # <<<<<<<<<<<<<<
@@ -5972,7 +5993,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
   size_t __pyx_t_13;
   __Pyx_RefNannySetupContext("kernelxx", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":406
+  /* "fatiando/gravmag/_tesseroid.pyx":410
  *         double kappa, r_sqr, coslon, l_sqr, cospsi, kphi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -5981,7 +6002,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":407
+  /* "fatiando/gravmag/_tesseroid.pyx":411
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -5990,7 +6011,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":408
+  /* "fatiando/gravmag/_tesseroid.pyx":412
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -6000,7 +6021,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":409
+    /* "fatiando/gravmag/_tesseroid.pyx":413
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -6010,7 +6031,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":410
+    /* "fatiando/gravmag/_tesseroid.pyx":414
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -6020,7 +6041,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":411
+      /* "fatiando/gravmag/_tesseroid.pyx":415
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6031,7 +6052,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_kphi = ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) - ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":412
+      /* "fatiando/gravmag/_tesseroid.pyx":416
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6042,7 +6063,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
       __pyx_t_7 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_6)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_7)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":413
+      /* "fatiando/gravmag/_tesseroid.pyx":417
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -6052,7 +6073,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
       for (__pyx_t_8 = 0; __pyx_t_8 < 2; __pyx_t_8+=1) {
         __pyx_v_k = __pyx_t_8;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":414
+        /* "fatiando/gravmag/_tesseroid.pyx":418
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -6063,7 +6084,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
         __pyx_t_10 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0)) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":415
+        /* "fatiando/gravmag/_tesseroid.pyx":419
  *             for k in range(2):
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]             # <<<<<<<<<<<<<<
@@ -6074,7 +6095,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
         __pyx_t_12 = __pyx_v_j;
         __pyx_v_kappa = (pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_11)) ))), 2.0) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_12)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":416
+        /* "fatiando/gravmag/_tesseroid.pyx":420
  *                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*(3*((rc[k]*kphi)**2) - l_sqr)/(l_sqr**2.5)             # <<<<<<<<<<<<<<
@@ -6087,7 +6108,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":417
+  /* "fatiando/gravmag/_tesseroid.pyx":421
  *                 kappa = (rc[k]**2)*coslatc[j]
  *                 result += kappa*(3*((rc[k]*kphi)**2) - l_sqr)/(l_sqr**2.5)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -6097,7 +6118,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":398
+  /* "fatiando/gravmag/_tesseroid.pyx":402
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxx(             # <<<<<<<<<<<<<<
@@ -6111,7 +6132,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxx(dou
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":422
+/* "fatiando/gravmag/_tesseroid.pyx":426
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxy(             # <<<<<<<<<<<<<<
@@ -6163,46 +6184,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_11gxy(PyObject *__pyx_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 1); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 1); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 2); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 2); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 3); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 3); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 4); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 4); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 5); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 5); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 6); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 6); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 7); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 7); __PYX_ERR(0, 426, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 8); __PYX_ERR(0, 422, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, 8); __PYX_ERR(0, 426, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxy") < 0)) __PYX_ERR(0, 422, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxy") < 0)) __PYX_ERR(0, 426, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -6218,9 +6239,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_11gxy(PyObject *__pyx_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 424, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 425, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 426, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 428, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 429, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -6229,18 +6250,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_11gxy(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 422, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gxy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 426, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gxy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 423, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 427, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 428, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 429, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 430, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 431, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 427, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 431, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 432, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 433, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 434, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 435, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_10gxy(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -6297,49 +6318,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_10gxy(CYTHON_UNUSED Py
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 422, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 426, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":436
+  /* "fatiando/gravmag/_tesseroid.pyx":440
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelxy)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 436, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 436, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":438
+  /* "fatiando/gravmag/_tesseroid.pyx":442
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelxy)
  *     return error             # <<<<<<<<<<<<<<
@@ -6347,13 +6368,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_10gxy(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":422
+  /* "fatiando/gravmag/_tesseroid.pyx":426
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxy(             # <<<<<<<<<<<<<<
@@ -6391,7 +6412,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_10gxy(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":444
+/* "fatiando/gravmag/_tesseroid.pyx":448
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxy(             # <<<<<<<<<<<<<<
@@ -6428,7 +6449,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
   size_t __pyx_t_12;
   __Pyx_RefNannySetupContext("kernelxy", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":452
+  /* "fatiando/gravmag/_tesseroid.pyx":456
  *         double kappa, r_sqr, rc_sqr, coslon, sinlon, l_sqr, cospsi, kphi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -6437,7 +6458,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":453
+  /* "fatiando/gravmag/_tesseroid.pyx":457
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -6446,7 +6467,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":454
+  /* "fatiando/gravmag/_tesseroid.pyx":458
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -6456,7 +6477,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":455
+    /* "fatiando/gravmag/_tesseroid.pyx":459
  *     result = 0
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)             # <<<<<<<<<<<<<<
@@ -6466,7 +6487,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
     __pyx_t_2 = __pyx_v_i;
     sincos(((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) ))) - __pyx_v_lon), (&__pyx_v_sinlon), (&__pyx_v_coslon));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":456
+    /* "fatiando/gravmag/_tesseroid.pyx":460
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -6476,7 +6497,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":457
+      /* "fatiando/gravmag/_tesseroid.pyx":461
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6487,7 +6508,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_kphi = ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) - ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":458
+      /* "fatiando/gravmag/_tesseroid.pyx":462
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6498,7 +6519,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
       __pyx_t_7 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_6)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_7)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":459
+      /* "fatiando/gravmag/_tesseroid.pyx":463
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -6508,7 +6529,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
       for (__pyx_t_8 = 0; __pyx_t_8 < 2; __pyx_t_8+=1) {
         __pyx_v_k = __pyx_t_8;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":460
+        /* "fatiando/gravmag/_tesseroid.pyx":464
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2             # <<<<<<<<<<<<<<
@@ -6518,7 +6539,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
         __pyx_t_9 = __pyx_v_k;
         __pyx_v_rc_sqr = pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":461
+        /* "fatiando/gravmag/_tesseroid.pyx":465
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -6528,7 +6549,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
         __pyx_t_10 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + __pyx_v_rc_sqr) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":462
+        /* "fatiando/gravmag/_tesseroid.pyx":466
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]             # <<<<<<<<<<<<<<
@@ -6538,7 +6559,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
         __pyx_t_11 = __pyx_v_j;
         __pyx_v_kappa = (__pyx_v_rc_sqr * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_11)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":463
+        /* "fatiando/gravmag/_tesseroid.pyx":467
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]
  *                 result += kappa*3*rc_sqr*kphi*coslatc[j]*sinlon/(l_sqr**2.5)             # <<<<<<<<<<<<<<
@@ -6551,7 +6572,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":464
+  /* "fatiando/gravmag/_tesseroid.pyx":468
  *                 kappa = rc_sqr*coslatc[j]
  *                 result += kappa*3*rc_sqr*kphi*coslatc[j]*sinlon/(l_sqr**2.5)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -6561,7 +6582,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":444
+  /* "fatiando/gravmag/_tesseroid.pyx":448
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxy(             # <<<<<<<<<<<<<<
@@ -6575,7 +6596,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxy(dou
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":469
+/* "fatiando/gravmag/_tesseroid.pyx":473
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxz(             # <<<<<<<<<<<<<<
@@ -6627,46 +6648,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_13gxz(PyObject *__pyx_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 1); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 1); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 2); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 2); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 3); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 3); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 4); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 4); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 5); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 5); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 6); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 6); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 7); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 7); __PYX_ERR(0, 473, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 8); __PYX_ERR(0, 469, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, 8); __PYX_ERR(0, 473, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxz") < 0)) __PYX_ERR(0, 469, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gxz") < 0)) __PYX_ERR(0, 473, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -6682,9 +6703,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_13gxz(PyObject *__pyx_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 471, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 472, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 473, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 477, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -6693,18 +6714,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_13gxz(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 469, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gxz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 473, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gxz", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 470, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 474, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 475, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 476, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 477, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 478, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 474, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 478, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 479, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 480, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 481, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 482, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_12gxz(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -6761,49 +6782,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_12gxz(CYTHON_UNUSED Py
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 473, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":483
+  /* "fatiando/gravmag/_tesseroid.pyx":487
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelxz)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 483, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":485
+  /* "fatiando/gravmag/_tesseroid.pyx":489
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelxz)
  *     return error             # <<<<<<<<<<<<<<
@@ -6811,13 +6832,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_12gxz(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 489, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":469
+  /* "fatiando/gravmag/_tesseroid.pyx":473
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxz(             # <<<<<<<<<<<<<<
@@ -6855,7 +6876,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_12gxz(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":491
+/* "fatiando/gravmag/_tesseroid.pyx":495
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxz(             # <<<<<<<<<<<<<<
@@ -6892,7 +6913,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
   size_t __pyx_t_13;
   __Pyx_RefNannySetupContext("kernelxz", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":499
+  /* "fatiando/gravmag/_tesseroid.pyx":503
  *         double kappa, r_sqr, rc_sqr, coslon, l_5, cospsi, kphi
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -6901,7 +6922,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":500
+  /* "fatiando/gravmag/_tesseroid.pyx":504
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -6910,7 +6931,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":501
+  /* "fatiando/gravmag/_tesseroid.pyx":505
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -6920,7 +6941,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":502
+    /* "fatiando/gravmag/_tesseroid.pyx":506
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -6930,7 +6951,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":503
+    /* "fatiando/gravmag/_tesseroid.pyx":507
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -6940,7 +6961,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":504
+      /* "fatiando/gravmag/_tesseroid.pyx":508
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6951,7 +6972,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_kphi = ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) - ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":505
+      /* "fatiando/gravmag/_tesseroid.pyx":509
  *         for j in range(2):
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -6962,7 +6983,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
       __pyx_t_7 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_6)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_7)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":506
+      /* "fatiando/gravmag/_tesseroid.pyx":510
  *             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -6972,7 +6993,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
       for (__pyx_t_8 = 0; __pyx_t_8 < 2; __pyx_t_8+=1) {
         __pyx_v_k = __pyx_t_8;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":507
+        /* "fatiando/gravmag/_tesseroid.pyx":511
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2             # <<<<<<<<<<<<<<
@@ -6982,7 +7003,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
         __pyx_t_9 = __pyx_v_k;
         __pyx_v_rc_sqr = pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_9)) ))), 2.0);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":508
+        /* "fatiando/gravmag/_tesseroid.pyx":512
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2
  *                 l_5 = (r_sqr + rc_sqr - 2*radius*rc[k]*cospsi)**2.5             # <<<<<<<<<<<<<<
@@ -6992,7 +7013,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
         __pyx_t_10 = __pyx_v_k;
         __pyx_v_l_5 = pow(((__pyx_v_r_sqr + __pyx_v_rc_sqr) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) )))) * __pyx_v_cospsi)), 2.5);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":509
+        /* "fatiando/gravmag/_tesseroid.pyx":513
  *                 rc_sqr = rc[k]**2
  *                 l_5 = (r_sqr + rc_sqr - 2*radius*rc[k]*cospsi)**2.5
  *                 kappa = rc_sqr*coslatc[j]             # <<<<<<<<<<<<<<
@@ -7002,7 +7023,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
         __pyx_t_11 = __pyx_v_j;
         __pyx_v_kappa = (__pyx_v_rc_sqr * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_11)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":510
+        /* "fatiando/gravmag/_tesseroid.pyx":514
  *                 l_5 = (r_sqr + rc_sqr - 2*radius*rc[k]*cospsi)**2.5
  *                 kappa = rc_sqr*coslatc[j]
  *                 result += kappa*3*rc[k]*kphi*(rc[k]*cospsi - radius)/l_5             # <<<<<<<<<<<<<<
@@ -7016,7 +7037,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":511
+  /* "fatiando/gravmag/_tesseroid.pyx":515
  *                 kappa = rc_sqr*coslatc[j]
  *                 result += kappa*3*rc[k]*kphi*(rc[k]*cospsi - radius)/l_5
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -7026,7 +7047,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":491
+  /* "fatiando/gravmag/_tesseroid.pyx":495
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelxz(             # <<<<<<<<<<<<<<
@@ -7040,7 +7061,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelxz(dou
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":516
+/* "fatiando/gravmag/_tesseroid.pyx":520
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyy(             # <<<<<<<<<<<<<<
@@ -7092,46 +7113,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_15gyy(PyObject *__pyx_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 1); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 1); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 2); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 2); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 3); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 3); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 4); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 4); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 5); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 5); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 6); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 6); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 7); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 7); __PYX_ERR(0, 520, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 8); __PYX_ERR(0, 516, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, 8); __PYX_ERR(0, 520, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gyy") < 0)) __PYX_ERR(0, 516, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gyy") < 0)) __PYX_ERR(0, 520, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -7147,9 +7168,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_15gyy(PyObject *__pyx_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 518, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 519, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 520, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 522, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 523, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 524, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -7158,18 +7179,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_15gyy(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 516, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gyy", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 520, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gyy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 517, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 521, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 522, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 523, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 524, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 525, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 521, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 525, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 526, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 527, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 528, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 529, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_14gyy(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -7226,49 +7247,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_14gyy(CYTHON_UNUSED Py
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":530
+  /* "fatiando/gravmag/_tesseroid.pyx":534
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelyy)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 534, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 534, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":532
+  /* "fatiando/gravmag/_tesseroid.pyx":536
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelyy)
  *     return error             # <<<<<<<<<<<<<<
@@ -7276,13 +7297,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_14gyy(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 532, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":516
+  /* "fatiando/gravmag/_tesseroid.pyx":520
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyy(             # <<<<<<<<<<<<<<
@@ -7320,7 +7341,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_14gyy(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":538
+/* "fatiando/gravmag/_tesseroid.pyx":542
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelyy(             # <<<<<<<<<<<<<<
@@ -7356,7 +7377,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
   size_t __pyx_t_11;
   __Pyx_RefNannySetupContext("kernelyy", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":546
+  /* "fatiando/gravmag/_tesseroid.pyx":550
  *         double kappa, r_sqr, rc_sqr, coslon, sinlon, l_sqr, cospsi, deltay
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -7365,7 +7386,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":547
+  /* "fatiando/gravmag/_tesseroid.pyx":551
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -7374,7 +7395,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":548
+  /* "fatiando/gravmag/_tesseroid.pyx":552
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -7384,7 +7405,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":549
+    /* "fatiando/gravmag/_tesseroid.pyx":553
  *     result = 0
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)             # <<<<<<<<<<<<<<
@@ -7394,7 +7415,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
     __pyx_t_2 = __pyx_v_i;
     sincos(((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) ))) - __pyx_v_lon), (&__pyx_v_sinlon), (&__pyx_v_coslon));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":550
+    /* "fatiando/gravmag/_tesseroid.pyx":554
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -7404,7 +7425,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":551
+      /* "fatiando/gravmag/_tesseroid.pyx":555
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -7415,7 +7436,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":552
+      /* "fatiando/gravmag/_tesseroid.pyx":556
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -7425,7 +7446,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
       for (__pyx_t_6 = 0; __pyx_t_6 < 2; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":553
+        /* "fatiando/gravmag/_tesseroid.pyx":557
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2             # <<<<<<<<<<<<<<
@@ -7435,7 +7456,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
         __pyx_t_7 = __pyx_v_k;
         __pyx_v_rc_sqr = pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_7)) ))), 2.0);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":554
+        /* "fatiando/gravmag/_tesseroid.pyx":558
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -7445,7 +7466,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
         __pyx_t_8 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + __pyx_v_rc_sqr) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":555
+        /* "fatiando/gravmag/_tesseroid.pyx":559
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]             # <<<<<<<<<<<<<<
@@ -7455,7 +7476,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
         __pyx_t_9 = __pyx_v_j;
         __pyx_v_kappa = (__pyx_v_rc_sqr * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_9)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":556
+        /* "fatiando/gravmag/_tesseroid.pyx":560
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltay = rc[k]*coslatc[j]*sinlon             # <<<<<<<<<<<<<<
@@ -7466,7 +7487,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
         __pyx_t_11 = __pyx_v_j;
         __pyx_v_deltay = (((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) ))) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_11)) )))) * __pyx_v_sinlon);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":557
+        /* "fatiando/gravmag/_tesseroid.pyx":561
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltay = rc[k]*coslatc[j]*sinlon
  *                 result += kappa*(3*(deltay**2) - l_sqr)/(l_sqr**2.5)             # <<<<<<<<<<<<<<
@@ -7478,7 +7499,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":558
+  /* "fatiando/gravmag/_tesseroid.pyx":562
  *                 deltay = rc[k]*coslatc[j]*sinlon
  *                 result += kappa*(3*(deltay**2) - l_sqr)/(l_sqr**2.5)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -7488,7 +7509,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":538
+  /* "fatiando/gravmag/_tesseroid.pyx":542
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelyy(             # <<<<<<<<<<<<<<
@@ -7502,7 +7523,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyy(dou
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":563
+/* "fatiando/gravmag/_tesseroid.pyx":567
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyz(             # <<<<<<<<<<<<<<
@@ -7554,46 +7575,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_17gyz(PyObject *__pyx_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 1); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 1); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 2); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 2); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 3); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 3); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 4); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 4); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 5); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 5); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 6); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 6); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 7); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 7); __PYX_ERR(0, 567, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 8); __PYX_ERR(0, 563, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, 8); __PYX_ERR(0, 567, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gyz") < 0)) __PYX_ERR(0, 563, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gyz") < 0)) __PYX_ERR(0, 567, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -7609,9 +7630,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_17gyz(PyObject *__pyx_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 565, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 566, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 567, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 569, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 570, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 571, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -7620,18 +7641,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_17gyz(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 563, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gyz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 567, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gyz", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 564, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 568, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 569, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 570, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 571, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 572, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 568, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 572, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 573, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 574, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 575, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 576, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_16gyz(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -7688,49 +7709,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_16gyz(CYTHON_UNUSED Py
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 563, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":577
+  /* "fatiando/gravmag/_tesseroid.pyx":581
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelyz)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 577, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 577, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":579
+  /* "fatiando/gravmag/_tesseroid.pyx":583
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelyz)
  *     return error             # <<<<<<<<<<<<<<
@@ -7738,13 +7759,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_16gyz(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 579, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 583, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":563
+  /* "fatiando/gravmag/_tesseroid.pyx":567
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyz(             # <<<<<<<<<<<<<<
@@ -7782,7 +7803,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_16gyz(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":585
+/* "fatiando/gravmag/_tesseroid.pyx":589
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelyz(             # <<<<<<<<<<<<<<
@@ -7820,7 +7841,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
   size_t __pyx_t_12;
   __Pyx_RefNannySetupContext("kernelyz", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":593
+  /* "fatiando/gravmag/_tesseroid.pyx":597
  *         double kappa, r_sqr, rc_sqr, coslon, sinlon, l_sqr, cospsi, deltay
  *         double deltaz, result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -7829,7 +7850,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":594
+  /* "fatiando/gravmag/_tesseroid.pyx":598
  *         double deltaz, result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -7838,7 +7859,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":595
+  /* "fatiando/gravmag/_tesseroid.pyx":599
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -7848,7 +7869,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":596
+    /* "fatiando/gravmag/_tesseroid.pyx":600
  *     result = 0
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)             # <<<<<<<<<<<<<<
@@ -7858,7 +7879,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
     __pyx_t_2 = __pyx_v_i;
     sincos(((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) ))) - __pyx_v_lon), (&__pyx_v_sinlon), (&__pyx_v_coslon));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":597
+    /* "fatiando/gravmag/_tesseroid.pyx":601
  *     for i in range(2):
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -7868,7 +7889,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":598
+      /* "fatiando/gravmag/_tesseroid.pyx":602
  *         sincos(lonc[i] - lon, &sinlon, &coslon)
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -7879,7 +7900,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":599
+      /* "fatiando/gravmag/_tesseroid.pyx":603
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -7889,7 +7910,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
       for (__pyx_t_6 = 0; __pyx_t_6 < 2; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":600
+        /* "fatiando/gravmag/_tesseroid.pyx":604
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2             # <<<<<<<<<<<<<<
@@ -7899,7 +7920,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
         __pyx_t_7 = __pyx_v_k;
         __pyx_v_rc_sqr = pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_7)) ))), 2.0);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":601
+        /* "fatiando/gravmag/_tesseroid.pyx":605
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -7909,7 +7930,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
         __pyx_t_8 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + __pyx_v_rc_sqr) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":602
+        /* "fatiando/gravmag/_tesseroid.pyx":606
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]             # <<<<<<<<<<<<<<
@@ -7919,7 +7940,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
         __pyx_t_9 = __pyx_v_j;
         __pyx_v_kappa = (__pyx_v_rc_sqr * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_9)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":603
+        /* "fatiando/gravmag/_tesseroid.pyx":607
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltay = rc[k]*coslatc[j]*sinlon             # <<<<<<<<<<<<<<
@@ -7930,7 +7951,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
         __pyx_t_11 = __pyx_v_j;
         __pyx_v_deltay = (((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) ))) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_11)) )))) * __pyx_v_sinlon);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":604
+        /* "fatiando/gravmag/_tesseroid.pyx":608
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltay = rc[k]*coslatc[j]*sinlon
  *                 deltaz = rc[k]*cospsi - radius             # <<<<<<<<<<<<<<
@@ -7940,7 +7961,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
         __pyx_t_12 = __pyx_v_k;
         __pyx_v_deltaz = (((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_12)) ))) * __pyx_v_cospsi) - __pyx_v_radius);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":605
+        /* "fatiando/gravmag/_tesseroid.pyx":609
  *                 deltay = rc[k]*coslatc[j]*sinlon
  *                 deltaz = rc[k]*cospsi - radius
  *                 result += kappa*3.*deltay*deltaz/(l_sqr**2.5)             # <<<<<<<<<<<<<<
@@ -7952,7 +7973,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":606
+  /* "fatiando/gravmag/_tesseroid.pyx":610
  *                 deltaz = rc[k]*cospsi - radius
  *                 result += kappa*3.*deltay*deltaz/(l_sqr**2.5)
  *     return result*scale             # <<<<<<<<<<<<<<
@@ -7962,7 +7983,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
   __pyx_r = (__pyx_v_result * __pyx_v_scale);
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":585
+  /* "fatiando/gravmag/_tesseroid.pyx":589
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelyz(             # <<<<<<<<<<<<<<
@@ -7976,7 +7997,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelyz(dou
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":611
+/* "fatiando/gravmag/_tesseroid.pyx":615
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gzz(             # <<<<<<<<<<<<<<
@@ -8028,46 +8049,46 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_19gzz(PyObject *__pyx_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_density)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 1); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 1); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 2); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 2); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_STACK_SIZE)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 3); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 3); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lons)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 4); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 4); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sinlats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 5); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 5); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_coslats)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 6); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 6); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 7); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 7); __PYX_ERR(0, 615, __pyx_L3_error)
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 8); __PYX_ERR(0, 611, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, 8); __PYX_ERR(0, 615, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gzz") < 0)) __PYX_ERR(0, 611, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "gzz") < 0)) __PYX_ERR(0, 615, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -8083,9 +8104,9 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_19gzz(PyObject *__pyx_
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_bounds = ((PyArrayObject *)values[0]);
-    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 613, __pyx_L3_error)
-    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 614, __pyx_L3_error)
-    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 615, __pyx_L3_error)
+    __pyx_v_density = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_density == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 617, __pyx_L3_error)
+    __pyx_v_ratio = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_ratio == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 618, __pyx_L3_error)
+    __pyx_v_STACK_SIZE = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_STACK_SIZE == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 619, __pyx_L3_error)
     __pyx_v_lons = ((PyArrayObject *)values[4]);
     __pyx_v_sinlats = ((PyArrayObject *)values[5]);
     __pyx_v_coslats = ((PyArrayObject *)values[6]);
@@ -8094,18 +8115,18 @@ static PyObject *__pyx_pw_8fatiando_7gravmag_10_tesseroid_19gzz(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 611, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("gzz", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 615, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fatiando.gravmag._tesseroid.gzz", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 612, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 616, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 617, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 618, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 619, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 620, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_bounds), __pyx_ptype_5numpy_ndarray, 1, "bounds", 0))) __PYX_ERR(0, 616, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lons), __pyx_ptype_5numpy_ndarray, 1, "lons", 0))) __PYX_ERR(0, 620, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sinlats), __pyx_ptype_5numpy_ndarray, 1, "sinlats", 0))) __PYX_ERR(0, 621, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_coslats), __pyx_ptype_5numpy_ndarray, 1, "coslats", 0))) __PYX_ERR(0, 622, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_radii), __pyx_ptype_5numpy_ndarray, 1, "radii", 0))) __PYX_ERR(0, 623, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_result), __pyx_ptype_5numpy_ndarray, 1, "result", 0))) __PYX_ERR(0, 624, __pyx_L1_error)
   __pyx_r = __pyx_pf_8fatiando_7gravmag_10_tesseroid_18gzz(__pyx_self, __pyx_v_bounds, __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, __pyx_v_lons, __pyx_v_sinlats, __pyx_v_coslats, __pyx_v_radii, __pyx_v_result);
 
   /* function exit code */
@@ -8162,49 +8183,49 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_18gzz(CYTHON_UNUSED Py
   __pyx_pybuffernd_result.rcbuffer = &__pyx_pybuffer_result;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_bounds.rcbuffer->pybuffer, (PyObject*)__pyx_v_bounds, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_bounds.diminfo[0].strides = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_bounds.diminfo[0].shape = __pyx_pybuffernd_bounds.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lons.rcbuffer->pybuffer, (PyObject*)__pyx_v_lons, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_lons.diminfo[0].strides = __pyx_pybuffernd_lons.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lons.diminfo[0].shape = __pyx_pybuffernd_lons.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sinlats.rcbuffer->pybuffer, (PyObject*)__pyx_v_sinlats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_sinlats.diminfo[0].strides = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sinlats.diminfo[0].shape = __pyx_pybuffernd_sinlats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_coslats.rcbuffer->pybuffer, (PyObject*)__pyx_v_coslats, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_coslats.diminfo[0].strides = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_coslats.diminfo[0].shape = __pyx_pybuffernd_coslats.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_radii.rcbuffer->pybuffer, (PyObject*)__pyx_v_radii, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_radii.diminfo[0].strides = __pyx_pybuffernd_radii.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_radii.diminfo[0].shape = __pyx_pybuffernd_radii.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 611, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_result.rcbuffer->pybuffer, (PyObject*)__pyx_v_result, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 615, __pyx_L1_error)
   }
   __pyx_pybuffernd_result.diminfo[0].strides = __pyx_pybuffernd_result.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_result.diminfo[0].shape = __pyx_pybuffernd_result.rcbuffer->pybuffer.shape[0];
 
-  /* "fatiando/gravmag/_tesseroid.pyx":625
+  /* "fatiando/gravmag/_tesseroid.pyx":629
  *     """
  *     cdef int error
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,             # <<<<<<<<<<<<<<
  *                           coslats, radii, result, kernelzz)
  *     return error
  */
-  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 625, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8fatiando_7gravmag_10_tesseroid_rediscretizer(((PyArrayObject *)__pyx_v_bounds), __pyx_v_density, __pyx_v_ratio, __pyx_v_STACK_SIZE, ((PyArrayObject *)__pyx_v_lons), ((PyArrayObject *)__pyx_v_sinlats), ((PyArrayObject *)__pyx_v_coslats), ((PyArrayObject *)__pyx_v_radii), ((PyArrayObject *)__pyx_v_result), __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 629, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 625, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 629, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_error = __pyx_t_2;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":627
+  /* "fatiando/gravmag/_tesseroid.pyx":631
  *     error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
  *                           coslats, radii, result, kernelzz)
  *     return error             # <<<<<<<<<<<<<<
@@ -8212,13 +8233,13 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_18gzz(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 627, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_error); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 631, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":611
+  /* "fatiando/gravmag/_tesseroid.pyx":615
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gzz(             # <<<<<<<<<<<<<<
@@ -8256,7 +8277,7 @@ static PyObject *__pyx_pf_8fatiando_7gravmag_10_tesseroid_18gzz(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "fatiando/gravmag/_tesseroid.pyx":633
+/* "fatiando/gravmag/_tesseroid.pyx":637
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelzz(double lon, double sinlat, double coslat,             # <<<<<<<<<<<<<<
@@ -8291,7 +8312,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
   size_t __pyx_t_10;
   __Pyx_RefNannySetupContext("kernelzz", 0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":640
+  /* "fatiando/gravmag/_tesseroid.pyx":644
  *         double kappa, r_sqr, coslon, rc_sqr, l_sqr, l_5, cospsi, deltaz
  *         double result
  *     r_sqr = radius**2             # <<<<<<<<<<<<<<
@@ -8300,7 +8321,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
  */
   __pyx_v_r_sqr = pow(__pyx_v_radius, 2.0);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":641
+  /* "fatiando/gravmag/_tesseroid.pyx":645
  *         double result
  *     r_sqr = radius**2
  *     result = 0             # <<<<<<<<<<<<<<
@@ -8309,7 +8330,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
  */
   __pyx_v_result = 0.0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":642
+  /* "fatiando/gravmag/_tesseroid.pyx":646
  *     r_sqr = radius**2
  *     result = 0
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -8319,7 +8340,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "fatiando/gravmag/_tesseroid.pyx":643
+    /* "fatiando/gravmag/_tesseroid.pyx":647
  *     result = 0
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])             # <<<<<<<<<<<<<<
@@ -8329,7 +8350,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
     __pyx_t_2 = __pyx_v_i;
     __pyx_v_coslon = cos((__pyx_v_lon - (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_lonc.data) + __pyx_t_2)) )))));
 
-    /* "fatiando/gravmag/_tesseroid.pyx":644
+    /* "fatiando/gravmag/_tesseroid.pyx":648
  *     for i in range(2):
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):             # <<<<<<<<<<<<<<
@@ -8339,7 +8360,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
     for (__pyx_t_3 = 0; __pyx_t_3 < 2; __pyx_t_3+=1) {
       __pyx_v_j = __pyx_t_3;
 
-      /* "fatiando/gravmag/_tesseroid.pyx":645
+      /* "fatiando/gravmag/_tesseroid.pyx":649
  *         coslon = cos(lon - lonc[i])
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon             # <<<<<<<<<<<<<<
@@ -8350,7 +8371,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
       __pyx_t_5 = __pyx_v_j;
       __pyx_v_cospsi = ((__pyx_v_sinlat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_sinlatc.data) + __pyx_t_4)) )))) + ((__pyx_v_coslat * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_5)) )))) * __pyx_v_coslon));
 
-      /* "fatiando/gravmag/_tesseroid.pyx":646
+      /* "fatiando/gravmag/_tesseroid.pyx":650
  *         for j in range(2):
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):             # <<<<<<<<<<<<<<
@@ -8360,7 +8381,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
       for (__pyx_t_6 = 0; __pyx_t_6 < 2; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "fatiando/gravmag/_tesseroid.pyx":647
+        /* "fatiando/gravmag/_tesseroid.pyx":651
  *             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2             # <<<<<<<<<<<<<<
@@ -8370,7 +8391,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
         __pyx_t_7 = __pyx_v_k;
         __pyx_v_rc_sqr = pow((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_7)) ))), 2.0);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":648
+        /* "fatiando/gravmag/_tesseroid.pyx":652
  *             for k in range(2):
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi             # <<<<<<<<<<<<<<
@@ -8380,7 +8401,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
         __pyx_t_8 = __pyx_v_k;
         __pyx_v_l_sqr = ((__pyx_v_r_sqr + __pyx_v_rc_sqr) - (((2.0 * __pyx_v_radius) * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_8)) )))) * __pyx_v_cospsi));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":649
+        /* "fatiando/gravmag/_tesseroid.pyx":653
  *                 rc_sqr = rc[k]**2
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 l_5 = l_sqr**2.5             # <<<<<<<<<<<<<<
@@ -8389,7 +8410,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
  */
         __pyx_v_l_5 = pow(__pyx_v_l_sqr, 2.5);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":650
+        /* "fatiando/gravmag/_tesseroid.pyx":654
  *                 l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
  *                 l_5 = l_sqr**2.5
  *                 kappa = rc_sqr*coslatc[j]             # <<<<<<<<<<<<<<
@@ -8399,7 +8420,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
         __pyx_t_9 = __pyx_v_j;
         __pyx_v_kappa = (__pyx_v_rc_sqr * (*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_coslatc.data) + __pyx_t_9)) ))));
 
-        /* "fatiando/gravmag/_tesseroid.pyx":651
+        /* "fatiando/gravmag/_tesseroid.pyx":655
  *                 l_5 = l_sqr**2.5
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltaz = rc[k]*cospsi - radius             # <<<<<<<<<<<<<<
@@ -8409,7 +8430,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
         __pyx_t_10 = __pyx_v_k;
         __pyx_v_deltaz = (((*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rc.data) + __pyx_t_10)) ))) * __pyx_v_cospsi) - __pyx_v_radius);
 
-        /* "fatiando/gravmag/_tesseroid.pyx":652
+        /* "fatiando/gravmag/_tesseroid.pyx":656
  *                 kappa = rc_sqr*coslatc[j]
  *                 deltaz = rc[k]*cospsi - radius
  *                 result += scale*kappa*(3*deltaz**2 - l_sqr)/l_5             # <<<<<<<<<<<<<<
@@ -8420,7 +8441,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
     }
   }
 
-  /* "fatiando/gravmag/_tesseroid.pyx":653
+  /* "fatiando/gravmag/_tesseroid.pyx":657
  *                 deltaz = rc[k]*cospsi - radius
  *                 result += scale*kappa*(3*deltaz**2 - l_sqr)/l_5
  *     return result             # <<<<<<<<<<<<<<
@@ -8428,7 +8449,7 @@ static CYTHON_INLINE double __pyx_f_8fatiando_7gravmag_10_tesseroid_kernelzz(dou
   __pyx_r = __pyx_v_result;
   goto __pyx_L0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":633
+  /* "fatiando/gravmag/_tesseroid.pyx":637
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * cdef inline double kernelzz(double lon, double sinlat, double coslat,             # <<<<<<<<<<<<<<
@@ -23683,125 +23704,125 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "fatiando/gravmag/_tesseroid.pyx":195
+  /* "fatiando/gravmag/_tesseroid.pyx":196
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def potential(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__25 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_potential, 195, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_potential, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 196, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":240
+  /* "fatiando/gravmag/_tesseroid.pyx":241
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gx(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__27 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gx, 240, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gx, 241, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 241, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":285
+  /* "fatiando/gravmag/_tesseroid.pyx":286
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__29 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gy, 285, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gy, 286, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 286, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":331
+  /* "fatiando/gravmag/_tesseroid.pyx":332
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__31 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gz, 331, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gz, 332, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 332, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":376
+  /* "fatiando/gravmag/_tesseroid.pyx":380
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxx(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__33 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 376, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 380, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxx, 376, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 376, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxx, 380, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 380, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":422
+  /* "fatiando/gravmag/_tesseroid.pyx":426
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__35 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxy, 422, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxy, 426, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 426, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":469
+  /* "fatiando/gravmag/_tesseroid.pyx":473
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__37 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 469, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 473, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxz, 469, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 469, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gxz, 473, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 473, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":516
+  /* "fatiando/gravmag/_tesseroid.pyx":520
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__39 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 516, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 520, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gyy, 516, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 516, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gyy, 520, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 520, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":563
+  /* "fatiando/gravmag/_tesseroid.pyx":567
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__41 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gyz, 563, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gyz, 567, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 567, __pyx_L1_error)
 
-  /* "fatiando/gravmag/_tesseroid.pyx":611
+  /* "fatiando/gravmag/_tesseroid.pyx":615
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gzz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_tuple__43 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 611, __pyx_L1_error)
+  __pyx_tuple__43 = PyTuple_Pack(10, __pyx_n_s_bounds, __pyx_n_s_density, __pyx_n_s_ratio, __pyx_n_s_STACK_SIZE, __pyx_n_s_lons, __pyx_n_s_sinlats, __pyx_n_s_coslats, __pyx_n_s_radii, __pyx_n_s_result, __pyx_n_s_error); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 615, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gzz, 611, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 611, __pyx_L1_error)
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_santis_Documentos_geo_2017, __pyx_n_s_gzz, 615, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 615, __pyx_L1_error)
 
   /* "View.MemoryView":282
  *         return self.name
@@ -24183,124 +24204,124 @@ PyMODINIT_FUNC PyInit__tesseroid(void)
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":195
+  /* "fatiando/gravmag/_tesseroid.pyx":196
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def potential(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_1potential, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_1potential, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_potential, __pyx_t_2) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_potential, __pyx_t_2) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":240
+  /* "fatiando/gravmag/_tesseroid.pyx":241
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gx(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_3gx, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_3gx, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gx, __pyx_t_2) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gx, __pyx_t_2) < 0) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":285
+  /* "fatiando/gravmag/_tesseroid.pyx":286
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_5gy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_5gy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gy, __pyx_t_2) < 0) __PYX_ERR(0, 285, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gy, __pyx_t_2) < 0) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":331
+  /* "fatiando/gravmag/_tesseroid.pyx":332
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_7gz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_7gz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gz, __pyx_t_2) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gz, __pyx_t_2) < 0) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":376
+  /* "fatiando/gravmag/_tesseroid.pyx":380
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxx(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_9gxx, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 376, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_9gxx, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 380, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxx, __pyx_t_2) < 0) __PYX_ERR(0, 376, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxx, __pyx_t_2) < 0) __PYX_ERR(0, 380, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":422
+  /* "fatiando/gravmag/_tesseroid.pyx":426
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_11gxy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_11gxy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxy, __pyx_t_2) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxy, __pyx_t_2) < 0) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":469
+  /* "fatiando/gravmag/_tesseroid.pyx":473
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gxz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_13gxz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 469, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_13gxz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 473, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxz, __pyx_t_2) < 0) __PYX_ERR(0, 469, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gxz, __pyx_t_2) < 0) __PYX_ERR(0, 473, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":516
+  /* "fatiando/gravmag/_tesseroid.pyx":520
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyy(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_15gyy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_15gyy, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gyy, __pyx_t_2) < 0) __PYX_ERR(0, 516, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gyy, __pyx_t_2) < 0) __PYX_ERR(0, 520, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":563
+  /* "fatiando/gravmag/_tesseroid.pyx":567
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gyz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_17gyz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_17gyz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gyz, __pyx_t_2) < 0) __PYX_ERR(0, 563, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gyz, __pyx_t_2) < 0) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fatiando/gravmag/_tesseroid.pyx":611
+  /* "fatiando/gravmag/_tesseroid.pyx":615
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def gzz(             # <<<<<<<<<<<<<<
  *     numpy.ndarray[double, ndim=1] bounds,
  *     double density,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_19gzz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 611, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_8fatiando_7gravmag_10_tesseroid_19gzz, NULL, __pyx_n_s_fatiando_gravmag__tesseroid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 615, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gzz, __pyx_t_2) < 0) __PYX_ERR(0, 611, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_gzz, __pyx_t_2) < 0) __PYX_ERR(0, 615, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "fatiando/gravmag/_tesseroid.pyx":1

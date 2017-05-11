@@ -109,6 +109,7 @@ cdef rediscretizer(
                 res += kernel(lon, sinlat, coslat, radius, scale, lonc,
                               sinlatc, coslatc, rc)
         result[l] += density*res
+    return error_code
 
 
 @cython.cdivision(True)
@@ -368,6 +369,9 @@ cdef inline double kernelz(
                 l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
                 kappa = (rc[k]**2)*coslatc[j]
                 result += kappa*(rc[k]*cospsi - radius)/(l_sqr**1.5)
+    # Multiply by -1 so that z is pointing down for gz and the gravity anomaly
+    # doesn't look inverted (ie, negative for positive density)
+    result *= -1
     return result*scale
 
 
