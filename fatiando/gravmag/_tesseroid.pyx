@@ -31,6 +31,138 @@ nodes = numpy.array([-0.577350269189625731058868041146,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+cdef rediscretizer(
+    numpy.ndarray[double, ndim=1] bounds,
+    double density,
+    double ratio,
+    int STACK_SIZE,
+    numpy.ndarray[double, ndim=1] lons,
+    numpy.ndarray[double, ndim=1] sinlats,
+    numpy.ndarray[double, ndim=1] coslats,
+    numpy.ndarray[double, ndim=1] radii,
+    numpy.ndarray[double, ndim=1] result,
+    kernel_func kernel):
+    """
+    Calculate the given kernel function on the computation points by
+    rediscretizing the tesseroid when needed.
+    """
+    cdef:
+        unsigned int l, size
+        double[::1] lonc =  numpy.empty(2, numpy.float)
+        double[::1] sinlatc =  numpy.empty(2, numpy.float)
+        double[::1] coslatc =  numpy.empty(2, numpy.float)
+        double[::1] rc =  numpy.empty(2, numpy.float)
+        double scale
+        unsigned int i, j, k
+        int nlon, nlat, nr, new_cells
+        int stktop, error, error_code
+        double[:, ::1] stack =  numpy.empty((STACK_SIZE, 6), numpy.float)
+        double w, e, s, n, top, bottom
+        double lon, sinlat, coslat, radius
+        double dlon, dlat, dr, distance
+        double res
+    size = len(result)
+    error_code = 0
+    for l in range(size):
+        lon = lons[l]
+        sinlat = sinlats[l]
+        coslat = coslats[l]
+        radius = radii[l]
+        res = 0
+        for i in range(6):
+            stack[0, i] = bounds[i]
+        stktop = 0
+        while stktop >= 0:
+            w = stack[stktop, 0]
+            e = stack[stktop, 1]
+            s = stack[stktop, 2]
+            n = stack[stktop, 3]
+            top = stack[stktop, 4]
+            bottom = stack[stktop, 5]
+            stktop -= 1
+            distance = distance_n_size(w, e, s, n, top, bottom, lon, sinlat,
+                                       coslat, radius, &dlon, &dlat, &dr)
+            # Check which dimensions I have to divide
+            error = divisions(distance, dlon, dlat, dr, ratio, &nlon,
+                              &nlat, &nr, &new_cells)
+            error_code += error
+            if new_cells > 1:
+                if stktop + nlon*nlat*nr > STACK_SIZE:
+                    raise ValueError('Tesseroid stack overflow')
+                dlon = (e - w)/nlon
+                dlat = (n - s)/nlat
+                dr = (top - bottom)/nr
+                for i in xrange(nlon):
+                    for j in xrange(nlat):
+                        for k in xrange(nr):
+                            stktop += 1
+                            stack[stktop, 0] = w + i*dlon
+                            stack[stktop, 1] = w + (i + 1)*dlon
+                            stack[stktop, 2] = s + j*dlat
+                            stack[stktop, 3] = s + (j + 1)*dlat
+                            stack[stktop, 4] = bottom + (k + 1)*dr
+                            stack[stktop, 5] = bottom + k*dr
+            else:
+                # Put the nodes in the current range
+                scale = scale_nodes(w, e, s, n, top, bottom, lonc, sinlatc,
+                                    coslatc, rc)
+                res += kernel(lon, sinlat, coslat, radius, scale, lonc,
+                              sinlatc, coslatc, rc)
+        result[l] += density*res
+
+
+@cython.cdivision(True)
+cdef inline double distance_n_size(
+    double w, double e, double s, double n, double top, double bottom,
+    double lon, double sinlat, double coslat, double radius,
+    double* dlon, double* dlat, double* dr):
+    cdef:
+        double rt, rtop, lont, latt, sinlatt, coslatt, cospsi, distance
+    # Calculate the distance to the observation point
+    rt = 0.5*(top + bottom) + MEAN_EARTH_RADIUS
+    lont = d2r*0.5*(w + e)
+    latt = d2r*0.5*(s + n)
+    sinlatt = sin(latt)
+    coslatt = cos(latt)
+    cospsi = sinlat*sinlatt + coslat*coslatt*cos(lon - lont)
+    distance = sqrt(radius**2 + rt**2 - 2*radius*rt*cospsi)
+    # Calculate the dimensions of the tesseroid in meters
+    rtop = top + MEAN_EARTH_RADIUS
+    dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
+    dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
+    dr[0] = top - bottom
+    return distance
+
+
+cdef inline int divisions(double distance, double Llon, double Llat, double Lr,
+                          double ratio, int* nlon, int* nlat, int* nr,
+                          int* new_cells):
+    "How many divisions should be made per dimension"
+    nlon[0] = 1
+    nlat[0] = 1
+    nr[0] = 1
+    error = 0
+    if distance <= ratio*Llon:
+        if Llon <= 0.1:  # in meters. ~1e-6  degrees
+            error = -1
+        else:
+            nlon[0] = 2
+    if distance <= ratio*Llat:
+        if Llat <= 0.1:  # in meters. ~1e-6  degrees
+            error = -1
+        else:
+            nlat[0] = 2
+    if distance <= ratio*Lr:
+        if Lr <= 1e3:
+            error = -1
+        else:
+            nr[0] = 2
+    new_cells[0] = nlon[0]*nlat[0]*nr[0]
+    return error
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
 cdef inline double scale_nodes(
     double w, double e, double s, double n, double top, double bottom,
     double[::1] lonc,
@@ -73,14 +205,16 @@ def potential(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
-                          coslats, radii, result, kernelpot)
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+                          coslats, radii, result, kernelV)
+    return error
 
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cdef inline double kernelpot(
+cdef inline double kernelV(
     double lon, double sinlat, double coslat, double radius, double scale,
     double[::1] lonc, double[::1] sinlatc, double[::1] coslatc,
     double[::1] rc):
@@ -116,9 +250,10 @@ def gx(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelx)
-
+    return error
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -160,8 +295,10 @@ def gy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernely)
+    return error
 
 
 @cython.boundscheck(False)
@@ -204,8 +341,10 @@ def gz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelz)
+    return error
 
 
 @cython.boundscheck(False)
@@ -247,8 +386,10 @@ def gxx(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxx)
+    return error
 
 
 @cython.boundscheck(False)
@@ -291,8 +432,10 @@ def gxy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxy)
+    return error
 
 
 @cython.boundscheck(False)
@@ -336,8 +479,10 @@ def gxz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxz)
+    return error
 
 
 @cython.boundscheck(False)
@@ -381,8 +526,10 @@ def gyy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelyy)
+    return error
 
 
 @cython.boundscheck(False)
@@ -426,8 +573,10 @@ def gyz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelyz)
+    return error
 
 
 @cython.boundscheck(False)
@@ -472,8 +621,10 @@ def gzz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
+    cdef int error
+    error = rediscretizer(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelzz)
+    return error
 
 
 @cython.boundscheck(False)
@@ -500,131 +651,3 @@ cdef inline double kernelzz(double lon, double sinlat, double coslat,
                 deltaz = rc[k]*cospsi - radius
                 result += scale*kappa*(3*deltaz**2 - l_sqr)/l_5
     return result
-
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-cdef with_rediscretization(
-    numpy.ndarray[double, ndim=1] bounds,
-    double density,
-    double ratio,
-    int STACK_SIZE,
-    numpy.ndarray[double, ndim=1] lons,
-    numpy.ndarray[double, ndim=1] sinlats,
-    numpy.ndarray[double, ndim=1] coslats,
-    numpy.ndarray[double, ndim=1] radii,
-    numpy.ndarray[double, ndim=1] result,
-    kernel_func kernel):
-    """
-    Calculate the given kernel function on the computation points by
-    rediscretizing the tesseroid when needed.
-    """
-    cdef:
-        unsigned int l, size
-        double[::1] lonc =  numpy.empty(2, numpy.float)
-        double[::1] sinlatc =  numpy.empty(2, numpy.float)
-        double[::1] coslatc =  numpy.empty(2, numpy.float)
-        double[::1] rc =  numpy.empty(2, numpy.float)
-        double scale
-        unsigned int i, j, k
-        int nlon, nlat, nr
-        int stktop, error, error_code
-        double[:, ::1] stack =  numpy.empty((STACK_SIZE, 6), numpy.float)
-        double w, e, s, n, top, bottom
-        double lon, sinlat, coslat, radius
-        double dlon, dlat, dr, distance
-        double res
-    size = len(result)
-    for l in range(size):
-        lon = lons[l]
-        sinlat = sinlats[l]
-        coslat = coslats[l]
-        radius = radii[l]
-        res = 0
-        for i in range(6):
-            stack[0, i] = bounds[i]
-        stktop = 1
-        while stktop:
-            stktop = stktop - 1
-            w = stack[stktop, 0]
-            e = stack[stktop, 1]
-            s = stack[stktop, 2]
-            n = stack[stktop, 3]
-            top = stack[stktop, 4]
-            bottom = stack[stktop, 5]
-            distance = distance_n_size(w, e, s, n, top, bottom, lon, sinlat,
-                                       coslat, radius, &dlon, &dlat, &dr)
-            # Check which dimensions I have to divide
-            error = divisions(distance, dlon, dlat, dr, ratio, &nlon,
-                              &nlat, &nr)
-            if nlon == 1 and nlat == 1 and nr == 1:
-                # Put the nodes in the current range
-                scale = scale_nodes(w, e, s, n, top, bottom, lonc, sinlatc,
-                                    coslatc, rc)
-                res += kernel(lon, sinlat, coslat, radius, scale, lonc,
-                              sinlatc, coslatc, rc)
-            else:
-                if stktop + nlon*nlat*nr > STACK_SIZE:
-                    raise ValueError('Tesseroid stack overflow')
-                dlon = (e - w)/nlon
-                dlat = (n - s)/nlat
-                dr = (top - bottom)/nr
-                for i in xrange(nlon):
-                    for j in xrange(nlat):
-                        for k in xrange(nr):
-                            stack[stktop, 0] = w + i*dlon
-                            stack[stktop, 1] = w + (i + 1)*dlon
-                            stack[stktop, 2] = s + j*dlat
-                            stack[stktop, 3] = s + (j + 1)*dlat
-                            stack[stktop, 4] = bottom + (k + 1)*dr
-                            stack[stktop, 5] = bottom + k*dr
-                            stktop = stktop + 1
-        result[l] += density*res
-
-
-@cython.cdivision(True)
-cdef inline double distance_n_size(
-    double w, double e, double s, double n, double top, double bottom,
-    double lon, double sinlat, double coslat, double radius,
-    double* dlon, double* dlat, double* dr):
-    cdef:
-        double rt, rtop, lont, latt, sinlatt, coslatt, cospsi, distance
-    # Calculate the distance to the observation point
-    rt = 0.5*(top + bottom) + MEAN_EARTH_RADIUS
-    lont = d2r*0.5*(w + e)
-    latt = d2r*0.5*(s + n)
-    sinlatt = sin(latt)
-    coslatt = cos(latt)
-    cospsi = sinlat*sinlatt + coslat*coslatt*cos(lon - lont)
-    distance = sqrt(radius**2 + rt**2 - 2*radius*rt*cospsi)
-    # Calculate the dimensions of the tesseroid in meters
-    rtop = top + MEAN_EARTH_RADIUS
-    dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
-    dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
-    dr[0] = top - bottom
-    return distance
-
-
-cdef inline int divisions(double distance, double Llon, double Llat, double Lr,
-                          double ratio, int* nlon, int* nlat, int* nr):
-    "How many divisions should be made per dimension"
-    nlon[0] = 1
-    nlat[0] = 1
-    nr[0] = 1
-    error = 0
-    if distance <= ratio*Llon:
-        if Llon <= 0.1:  # in meters. ~1e-6  degrees
-            error = -1
-        else:
-            nlon[0] = 2
-    if distance <= ratio*Llat:
-        if Llat <= 0.1:  # in meters. ~1e-6  degrees
-            error = -1
-        else:
-            nlat[0] = 2
-    if distance <= ratio*Lr:
-        if Lr <= 1e3:
-            error = -1
-        else:
-            nr[0] = 2
-    return error
