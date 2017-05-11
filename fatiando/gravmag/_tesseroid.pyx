@@ -64,7 +64,7 @@ def potential(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -73,7 +73,7 @@ def potential(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelpot)
 
 
@@ -107,7 +107,7 @@ def gx(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -116,7 +116,7 @@ def gx(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelx)
 
 
@@ -151,7 +151,7 @@ def gy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -160,7 +160,7 @@ def gy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernely)
 
 
@@ -195,7 +195,7 @@ def gz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -204,7 +204,7 @@ def gz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelz)
 
 
@@ -238,7 +238,7 @@ def gxx(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -247,7 +247,7 @@ def gxx(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxx)
 
 
@@ -282,7 +282,7 @@ def gxy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -291,7 +291,7 @@ def gxy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxy)
 
 
@@ -327,7 +327,7 @@ def gxz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -336,7 +336,7 @@ def gxz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelxz)
 
 
@@ -372,7 +372,7 @@ def gyy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -381,7 +381,7 @@ def gyy(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelyy)
 
 
@@ -417,7 +417,7 @@ def gyz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -426,7 +426,7 @@ def gyz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelyz)
 
 
@@ -463,7 +463,7 @@ def gzz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -472,7 +472,7 @@ def gzz(
     """
     Calculate this gravity field of a tesseroid at given locations.
     """
-    with_rediscretization(bounds, density, ratio, queue_max, lons, sinlats,
+    with_rediscretization(bounds, density, ratio, STACK_SIZE, lons, sinlats,
                           coslats, radii, result, kernelzz)
 
 
@@ -508,7 +508,7 @@ cdef with_rediscretization(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
     double ratio,
-    int queue_max,
+    int STACK_SIZE,
     numpy.ndarray[double, ndim=1] lons,
     numpy.ndarray[double, ndim=1] sinlats,
     numpy.ndarray[double, ndim=1] coslats,
@@ -528,8 +528,8 @@ cdef with_rediscretization(
         double scale
         unsigned int i, j, k
         int nlon, nlat, nr
-        int queue_size
-        double[:, ::1] queue =  numpy.empty((queue_max, 6), numpy.float)
+        int stktop, error, error_code
+        double[:, ::1] stack =  numpy.empty((STACK_SIZE, 6), numpy.float)
         double w, e, s, n, top, bottom
         double lon, sinlat, coslat, radius
         double dlon, dlat, dr, distance
@@ -542,16 +542,16 @@ cdef with_rediscretization(
         radius = radii[l]
         res = 0
         for i in range(6):
-            queue[0, i] = bounds[i]
-        queue_size = 1
-        while queue_size:
-            queue_size = queue_size - 1
-            w = queue[queue_size, 0]
-            e = queue[queue_size, 1]
-            s = queue[queue_size, 2]
-            n = queue[queue_size, 3]
-            top = queue[queue_size, 4]
-            bottom = queue[queue_size, 5]
+            stack[0, i] = bounds[i]
+        stktop = 1
+        while stktop:
+            stktop = stktop - 1
+            w = stack[stktop, 0]
+            e = stack[stktop, 1]
+            s = stack[stktop, 2]
+            n = stack[stktop, 3]
+            top = stack[stktop, 4]
+            bottom = stack[stktop, 5]
             distance = distance_n_size(w, e, s, n, top, bottom, lon, sinlat,
                                        coslat, radius, &dlon, &dlat, &dr)
             # Check which dimensions I have to divide
@@ -564,21 +564,21 @@ cdef with_rediscretization(
                 res += kernel(lon, sinlat, coslat, radius, scale, lonc,
                               sinlatc, coslatc, rc)
             else:
-                if queue_size + nlon*nlat*nr > queue_max:
-                    raise ValueError('Tesseroid queue overflow')
+                if stktop + nlon*nlat*nr > STACK_SIZE:
+                    raise ValueError('Tesseroid stack overflow')
                 dlon = (e - w)/nlon
                 dlat = (n - s)/nlat
                 dr = (top - bottom)/nr
                 for i in xrange(nlon):
                     for j in xrange(nlat):
                         for k in xrange(nr):
-                            queue[queue_size, 0] = w + i*dlon
-                            queue[queue_size, 1] = w + (i + 1)*dlon
-                            queue[queue_size, 2] = s + j*dlat
-                            queue[queue_size, 3] = s + (j + 1)*dlat
-                            queue[queue_size, 4] = bottom + (k + 1)*dr
-                            queue[queue_size, 5] = bottom + k*dr
-                            queue_size = queue_size + 1
+                            stack[stktop, 0] = w + i*dlon
+                            stack[stktop, 1] = w + (i + 1)*dlon
+                            stack[stktop, 2] = s + j*dlat
+                            stack[stktop, 3] = s + (j + 1)*dlat
+                            stack[stktop, 4] = bottom + (k + 1)*dr
+                            stack[stktop, 5] = bottom + k*dr
+                            stktop = stktop + 1
         result[l] += density*res
 
 
