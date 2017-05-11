@@ -93,7 +93,7 @@ import multiprocessing
 import warnings
 
 import numpy as np
-from . import _tesseroid_numba
+from . import _tesseroid
 from ..constants import SI2MGAL, SI2EOTVOS, MEAN_EARTH_RADIUS, G
 from .._our_duecredit import due, Doi, BibTeX
 
@@ -217,7 +217,7 @@ def _forward_model(args):
     """
     lon, lat, height, result, model, dens, ratio, field = args
     lon, sinlat, coslat, radius = _convert_coords(lon, lat, height)
-    func = getattr(_tesseroid_numba, field)
+    func = getattr(_tesseroid, field)
     warning_msg = (
         "Stopped dividing a tesseroid because it's dimensions would be " +
         "below the minimum numerical threshold (1e-6 degrees or 1e-3 m). " +
