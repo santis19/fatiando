@@ -21,7 +21,6 @@ cdef:
     double d2r = numpy.pi/180.
     double[::1] nodes
     double MEAN_EARTH_RADIUS = constants.MEAN_EARTH_RADIUS
-    double G = constants.G
     ctypedef double (*kernel_func)(double, double, double, double, double,
                                    double[::1], double[::1], double[::1],
                                    double[::1])
@@ -31,6 +30,7 @@ nodes = numpy.array([-0.577350269189625731058868041146,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 cdef rediscretizer(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -47,19 +47,18 @@ cdef rediscretizer(
     rediscretizing the tesseroid when needed.
     """
     cdef:
-        unsigned int l, size
+        unsigned int i, l, size
         double[::1] lonc =  numpy.empty(2, numpy.float)
         double[::1] sinlatc =  numpy.empty(2, numpy.float)
         double[::1] coslatc =  numpy.empty(2, numpy.float)
         double[::1] rc =  numpy.empty(2, numpy.float)
         double scale
-        unsigned int i, j, k
         int nlon, nlat, nr, new_cells
         int stktop, error, error_code
         double[:, ::1] stack =  numpy.empty((STACK_SIZE, 6), numpy.float)
         double w, e, s, n, top, bottom
         double lon, sinlat, coslat, radius
-        double dlon, dlat, dr, distance
+        double Llon, Llat, Lr, distance
         double res
     size = len(result)
     error_code = 0
@@ -81,27 +80,16 @@ cdef rediscretizer(
             bottom = stack[stktop, 5]
             stktop -= 1
             distance = distance_n_size(w, e, s, n, top, bottom, lon, sinlat,
-                                       coslat, radius, &dlon, &dlat, &dr)
+                                       coslat, radius, &Llon, &Llat, &Lr)
             # Check which dimensions I have to divide
-            error = divisions(distance, dlon, dlat, dr, ratio, &nlon,
+            error = divisions(distance, Llon, Llat, Lr, ratio, &nlon,
                               &nlat, &nr, &new_cells)
             error_code += error
             if new_cells > 1:
                 if stktop + nlon*nlat*nr > STACK_SIZE:
                     raise ValueError('Tesseroid stack overflow')
-                dlon = (e - w)/nlon
-                dlat = (n - s)/nlat
-                dr = (top - bottom)/nr
-                for i in xrange(nlon):
-                    for j in xrange(nlat):
-                        for k in xrange(nr):
-                            stktop += 1
-                            stack[stktop, 0] = w + i*dlon
-                            stack[stktop, 1] = w + (i + 1)*dlon
-                            stack[stktop, 2] = s + j*dlat
-                            stack[stktop, 3] = s + (j + 1)*dlat
-                            stack[stktop, 4] = bottom + (k + 1)*dr
-                            stack[stktop, 5] = bottom + k*dr
+                stktop = split(w, e, s, n, top, bottom, nlon, nlat, nr,
+                               stack, stktop)
             else:
                 # Put the nodes in the current range
                 scale = scale_nodes(w, e, s, n, top, bottom, lonc, sinlatc,
@@ -112,11 +100,13 @@ cdef rediscretizer(
     return error_code
 
 
+@cython.boundscheck(False)
+@cython.wraparound(False)
 @cython.cdivision(True)
 cdef inline double distance_n_size(
     double w, double e, double s, double n, double top, double bottom,
     double lon, double sinlat, double coslat, double radius,
-    double* dlon, double* dlat, double* dr):
+    double* Llon, double* Llat, double* Lr):
     cdef:
         double rt, rtop, lont, latt, sinlatt, coslatt, cospsi, distance
     # Calculate the distance to the observation point
@@ -129,12 +119,15 @@ cdef inline double distance_n_size(
     distance = sqrt(radius**2 + rt**2 - 2*radius*rt*cospsi)
     # Calculate the dimensions of the tesseroid in meters
     rtop = top + MEAN_EARTH_RADIUS
-    dlon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
-    dlat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
-    dr[0] = top - bottom
+    Llon[0] = rtop*acos(sinlatt**2 + (coslatt**2)*cos(d2r*(e - w)))
+    Llat[0] = rtop*acos(sin(d2r*n)*sin(d2r*s) + cos(d2r*n)*cos(d2r*s))
+    Lr[0] = top - bottom
     return distance
 
 
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
 cdef inline int divisions(double distance, double Llon, double Llat, double Lr,
                           double ratio, int* nlon, int* nlat, int* nr,
                           int* new_cells):
@@ -164,6 +157,7 @@ cdef inline int divisions(double distance, double Llon, double Llat, double Lr,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 cdef inline double scale_nodes(
     double w, double e, double s, double n, double top, double bottom,
     double[::1] lonc,
@@ -193,6 +187,32 @@ cdef inline double scale_nodes(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
+cdef int split(double w, double e, double s, double n, double top,
+               double bottom, int nlon, int nlat, int nr,
+               double[:, ::1] stack, int stktop):
+    cdef:
+        unsigned int i, j, k
+        double dlon, dlat, dr
+    dlon = (e - w)/nlon
+    dlat = (n - s)/nlat
+    dr = (top - bottom)/nr
+    for i in xrange(nlon):
+        for j in xrange(nlat):
+            for k in xrange(nr):
+                stktop += 1
+                stack[stktop, 0] = w + i*dlon
+                stack[stktop, 1] = w + (i + 1)*dlon
+                stack[stktop, 2] = s + j*dlat
+                stack[stktop, 3] = s + (j + 1)*dlat
+                stack[stktop, 4] = bottom + (k + 1)*dr
+                stack[stktop, 5] = bottom + k*dr
+    return stktop
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
 def potential(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -238,6 +258,7 @@ cdef inline double kernelV(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gx(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -283,6 +304,7 @@ cdef inline double kernelx(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -329,6 +351,7 @@ cdef inline double kernely(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -377,6 +400,7 @@ cdef inline double kernelz(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gxx(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -423,6 +447,7 @@ cdef inline double kernelxx(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gxy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -470,6 +495,7 @@ cdef inline double kernelxy(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gxz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -517,6 +543,7 @@ cdef inline double kernelxz(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gyy(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -564,6 +591,7 @@ cdef inline double kernelyy(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gyz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
@@ -612,6 +640,7 @@ cdef inline double kernelyz(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
 def gzz(
     numpy.ndarray[double, ndim=1] bounds,
     double density,
