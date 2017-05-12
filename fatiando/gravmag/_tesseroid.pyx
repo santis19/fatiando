@@ -242,7 +242,7 @@ cdef inline double kernelV(
     cdef:
         unsigned int i, j, k
         double kappa, r_sqr, coslon, l_sqr, cospsi
-        double result
+        double result, rc_sqr
     r_sqr = radius**2
     result = 0
     for i in range(2):
@@ -250,8 +250,9 @@ cdef inline double kernelV(
         for j in range(2):
             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
             for k in range(2):
-                l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
-                kappa = (rc[k]**2)*coslatc[j]
+                rc_sqr = rc[k]**2
+                l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
+                kappa = rc_sqr*coslatc[j]
                 result += kappa/sqrt(l_sqr)
     return result*scale
 
@@ -287,7 +288,7 @@ cdef inline double kernelx(
     cdef:
         unsigned int i, j, k
         double kappa, r_sqr, coslon, kphi, l_sqr, cospsi
-        double result
+        double result, rc_sqr
     r_sqr = radius**2
     result = 0
     for i in range(2):
@@ -296,8 +297,9 @@ cdef inline double kernelx(
             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
             for k in range(2):
-                l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
-                kappa = (rc[k]**2)*coslatc[j]
+                rc_sqr = rc[k]**2
+                l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
+                kappa = rc_sqr*coslatc[j]
                 result += kappa*rc[k]*kphi/(l_sqr**1.5)
     return result*scale
 
@@ -334,7 +336,7 @@ cdef inline double kernely(
     cdef:
         unsigned int i, j, k
         double kappa, r_sqr, coslon, sinlon, l_sqr, cospsi
-        double result
+        double result, rc_sqr
     r_sqr = radius**2
     result = 0
     for i in range(2):
@@ -343,8 +345,9 @@ cdef inline double kernely(
         for j in range(2):
             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
             for k in range(2):
-                l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
-                kappa = (rc[k]**2)*coslatc[j]
+                rc_sqr = rc[k]**2
+                l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
+                kappa = rc_sqr*coslatc[j]
                 result += kappa*(rc[k]*coslatc[j]*sinlon/(l_sqr**1.5))
     return result*scale
 
@@ -381,7 +384,7 @@ cdef inline double kernelz(
     cdef:
         unsigned int i, j, k
         double kappa, r_sqr, coslon, l_sqr, cospsi
-        double result
+        double result, rc_sqr
     r_sqr = radius**2
     result = 0
     for i in range(2):
@@ -389,8 +392,9 @@ cdef inline double kernelz(
         for j in range(2):
             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
             for k in range(2):
-                l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
-                kappa = (rc[k]**2)*coslatc[j]
+                rc_sqr = rc[k]**2
+                l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
+                kappa = rc_sqr*coslatc[j]
                 result += kappa*(rc[k]*cospsi - radius)/(l_sqr**1.5)
     # Multiply by -1 so that z is pointing down for gz and the gravity anomaly
     # doesn't look inverted (ie, negative for positive density)
@@ -430,7 +434,7 @@ cdef inline double kernelxx(
     cdef:
         unsigned int i, j, k
         double kappa, r_sqr, coslon, l_sqr, cospsi, kphi
-        double result
+        double result, rc_sqr
     r_sqr = radius**2
     result = 0
     for i in range(2):
@@ -439,8 +443,9 @@ cdef inline double kernelxx(
             kphi = coslat*sinlatc[j] - sinlat*coslatc[j]*coslon
             cospsi = sinlat*sinlatc[j] + coslat*coslatc[j]*coslon
             for k in range(2):
-                l_sqr = r_sqr + rc[k]**2 - 2*radius*rc[k]*cospsi
-                kappa = (rc[k]**2)*coslatc[j]
+                rc_sqr = rc[k]**2
+                l_sqr = r_sqr + rc_sqr - 2*radius*rc[k]*cospsi
+                kappa = rc_sqr*coslatc[j]
                 result += kappa*(3*((rc[k]*kphi)**2) - l_sqr)/(l_sqr**2.5)
     return result*scale
 
