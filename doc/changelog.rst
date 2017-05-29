@@ -54,6 +54,10 @@ Version 0.6
   gravity function and ~2x in the magnetic functions over the Cython code.
   As a bonus, reached 100% test coverage for this module.
   (`PR 364 <https://github.com/fatiando/fatiando/pull/364>`__)
+* Replace Cython coded functions in ``fatiando.gravmag.polyprism`` with pure
+  Python + numpy code. Functions run as fast or faster than their Cython
+  versions thanks to some optimizations (combine logarithm computations).
+  (`PR 368 <https://github.com/fatiando/fatiando/pull/368>`__)
 * New function ``from_image`` in ``fatiando.datasets`` that creates a template
   for a model from an image file.
   (`PR 363 <https://github.com/fatiando/fatiando/pull/363>`__)
@@ -78,6 +82,14 @@ Version 0.6
   verifies that the hash of a file is same as a known (recorded) hash. Used to
   check data files for corruption.
   (`PR 355 <https://github.com/fatiando/fatiando/pull/355>`__)
+* More rigorous regression tests for the ``fatiando.gravmag`` forward modeling
+  functions. Tests compare the current output against a saved output that if
+  known to be correct. This helps ensure that the values don't change suddenly
+  but in a consistent way that we wouldn't catch otherwise (like by a constant
+  value).
+  (PRs `364 <https://github.com/fatiando/fatiando/pull/364>`__,
+  `395 <https://github.com/fatiando/fatiando/pull/395>`__,
+  `396 <https://github.com/fatiando/fatiando/pull/396>`__)
 
 **Development/maintenance**
 
