@@ -87,7 +87,7 @@ cdef rediscretizer(
             error_code += error
             if new_cells > 1:
                 if stktop + nlon*nlat*nr > STACK_SIZE:
-                    raise ValueError('Tesseroid stack overflow')
+                    raise OverflowError
                 stktop = split(w, e, s, n, top, bottom, nlon, nlat, nr,
                                stack, stktop)
             else:
