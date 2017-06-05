@@ -8,7 +8,7 @@ import numpy
 
 from .. import constants
 
-from libc.math cimport sin, cos, sqrt, atan2, acos
+from libc.math cimport sin, cos, sqrt, acos
 # Import Cython definitions for numpy
 cimport numpy
 cimport cython
