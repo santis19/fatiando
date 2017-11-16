@@ -107,7 +107,8 @@ class Moulder(object):
     epsilon = 5
     # App instructions printed in the figure suptitle
     instructions = ' | '.join([
-        'n: New polygon', 'd: delete', 'click: select/move', 'esc: cancel'])
+        'n: New polygon', 'd: delete', 'click: select/move', 'r: reset view',
+        'esc: cancel'])
 
     def __init__(self, area, x, z, data=None, density_range=[-2000, 2000],
                  **kwargs):
@@ -312,13 +313,16 @@ class Moulder(object):
             The created figure
 
         """
+        sharex = kwargs.get('sharex')
+        if not sharex:
+            kwargs['sharex'] = True
         fig, axes = pyplot.subplots(2, 1, **kwargs)
         ax1, ax2 = axes
         self.predicted_line, = ax1.plot(self.x, self.predicted, '-r')
         if self.data is not None:
             self.data_line, = ax1.plot(self.x, self.data, '.k')
         ax1.set_ylabel('Gravity anomaly (mGal)')
-        ax1.set_xlabel('x (m)', labelpad=-10)
+        ax2.set_xlabel('x (m)', labelpad=-10)
         ax1.set_xlim(self.area[:2])
         ax1.set_ylim((-200, 200))
         ax1.grid(True)
@@ -565,8 +569,6 @@ class Moulder(object):
         """
         What to do when a key is pressed on the keyboard.
         """
-        if event.inaxes is None:
-            return
         if event.key == 'd':
             if self._drawing and self._xy:
                 self._xy.pop()
@@ -631,6 +633,9 @@ class Moulder(object):
                 line.set_animated(False)
                 line.set_color([0, 0, 0, 0])
             self.canvas.draw()
+        elif event.key == 'r':
+            self.modelax.set_xlim(self.area[0], self.area[1])
+            self._update_data_plot()
 
     def _mouse_move_callback(self, event):
         """
