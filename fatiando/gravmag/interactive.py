@@ -207,7 +207,7 @@ class Moulder(object):
         """
         The polygon model drawn as :class:`fatiando.mesher.Polygon` objects.
         """
-        m = [Polygon(p.xy, {'density': d})
+        m = [Polygon(p.xy, {'density': d}, force_CW=True)
              for p, d in zip(self.polygons, self.densities)]
         return m
 
