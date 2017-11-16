@@ -263,14 +263,6 @@ class Moulder(object):
                                 self._button_release_callback)
         self.canvas.mpl_connect('motion_notify_event',
                                 self._mouse_move_callback)
-        self.canvas.mpl_connect('draw_event',
-                                self._draw_callback)
-        # Call the cleanup and extra code for a draw event when resizing as
-        # well. This is needed so that tight_layout adjusts the figure when
-        # resized. Otherwise, tight_layout snaps only when the user clicks on
-        # the figure to do something.
-        self.canvas.mpl_connect('resize_event',
-                                self._draw_callback)
         self.density_slider.on_changed(self._set_density_callback)
         self.error_slider.on_changed(self._set_error_callback)
 
@@ -421,16 +413,6 @@ class Moulder(object):
         self.dataax.set_ylim(vmin, vmax)
         self.dataax.grid(True)
         self.canvas.draw()
-
-    def _draw_callback(self, value):
-        """
-        Callback for the canvas.draw() event.
-
-        This is called everytime the figure is redrawn. Used to do some
-        clean up and tunning whenever this is called as well, like calling
-        ``tight_layout``.
-        """
-        self.figure.tight_layout()
 
     def _set_error_callback(self, value):
         """
