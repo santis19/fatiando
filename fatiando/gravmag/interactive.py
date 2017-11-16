@@ -107,8 +107,8 @@ class Moulder(object):
     epsilon = 5
     # App instructions printed in the figure suptitle
     instructions = ' | '.join([
-        'n: New polygon', 'd: delete', 'click: select/move', 'r: reset view',
-        'esc: cancel'])
+        'n: New polygon', 'd: delete', 'click: select/move', 'a: add vertex'
+        'r: reset view', 'esc: cancel'])
 
     def __init__(self, area, x, z, data=None, density_range=[-2000, 2000],
                  **kwargs):
@@ -238,6 +238,7 @@ class Moulder(object):
         self._ipoly = None
         self._lastevent = None
         self._drawing = False
+        self._add_vertex = False
         self._xy = []
         self._drawing_plot = None
         # Used to blit the model plot and make
@@ -472,6 +473,29 @@ class Moulder(object):
                 v = [0, last]
         return p, v
 
+    def _add_new_vertex(self, event):
+        """
+        Add new vertex to polygon
+        """
+        vertices = self.polygons[self._ipoly].get_xy()
+        x, y = vertices[:, 0], vertices[:, 1]
+
+        # Compute the angle between the vectors to each pair of
+        # vertices corresponding to each line segment of the polygon
+        x1, y1 = x[:-1], y[:-1]
+        y2 = numpy.hstack((y1[1:], y1[0]))
+        x2 = numpy.hstack((x1[1:], x1[0]))
+        u = numpy.vstack((x1 - event.xdata, y1 - event.ydata)).T
+        v = numpy.vstack((x2 - event.xdata, y2 - event.ydata)).T
+        angle = numpy.arccos(numpy.sum(u*v, 1)/ \
+                             numpy.sqrt(numpy.sum(u**2, 1))/ \
+                             numpy.sqrt(numpy.sum(v**2, 1)))
+        position = angle.argmax() + 1
+        x = numpy.hstack((x[:position], event.xdata, x[position:]))
+        y = numpy.hstack((y[:position], event.ydata, y[position:]))
+        new_vertices = numpy.vstack((x, y)).T
+        return new_vertices
+
     def _button_press_callback(self, event):
         """
         What actions to perform when a mouse button is clicked
@@ -480,24 +504,45 @@ class Moulder(object):
             return
         if event.button == 1 and not self._drawing and self.polygons:
             self._lastevent = event
-            for line, poly in zip(self.lines, self.polygons):
-                poly.set_animated(False)
-                line.set_animated(False)
-                line.set_color([0, 0, 0, 0])
-            self.canvas.draw()
-            # Find out if a click happened on a vertice
-            # and which vertice of which polygon
-            self._ipoly, self._ivert = self._get_polygon_vertice_id(event)
-            if self._ipoly is not None:
-                self.density_slider.set_val(self.densities[self._ipoly])
-                self.polygons[self._ipoly].set_animated(True)
-                self.lines[self._ipoly].set_animated(True)
-                self.lines[self._ipoly].set_color([0, 1, 0, 0])
+            if not self._add_vertex:
+                for line, poly in zip(self.lines, self.polygons):
+                    poly.set_animated(False)
+                    line.set_animated(False)
+                    line.set_color([0, 0, 0, 0])
                 self.canvas.draw()
-                self.background = self.canvas.copy_from_bbox(self.modelax.bbox)
-                self.modelax.draw_artist(self.polygons[self._ipoly])
-                self.modelax.draw_artist(self.lines[self._ipoly])
-                self.canvas.blit(self.modelax.bbox)
+                # Find out if a click happened on a vertice
+                # and which vertice of which polygon
+                self._ipoly, self._ivert = self._get_polygon_vertice_id(event)
+                if self._ipoly is not None:
+                    self.density_slider.set_val(self.densities[self._ipoly])
+                    self.polygons[self._ipoly].set_animated(True)
+                    self.lines[self._ipoly].set_animated(True)
+                    self.lines[self._ipoly].set_color([0, 1, 0, 0])
+                    self.canvas.draw()
+                    self.background = self.canvas.copy_from_bbox(self.modelax.bbox)
+                    self.modelax.draw_artist(self.polygons[self._ipoly])
+                    self.modelax.draw_artist(self.lines[self._ipoly])
+                    self.canvas.blit(self.modelax.bbox)
+            else:
+                # If a polygon is selected, we will add a new vertex by
+                # removing the polygon and inserting a new one with the extra
+                # vertex.
+                if self._ipoly is not None:
+                    vertices = self._add_new_vertex(event)
+                    density = self.densities[self._ipoly]
+                    polygon, line = self._make_polygon(vertices, density)
+                    self.polygons[self._ipoly].remove()
+                    self.lines[self._ipoly].remove()
+                    self.polygons.pop(self._ipoly)
+                    self.lines.pop(self._ipoly)
+                    self.polygons.insert(self._ipoly, polygon)
+                    self.lines.insert(self._ipoly, line)
+                    self.modelax.add_patch(polygon)
+                    self.modelax.add_line(line)
+                    self.lines[self._ipoly].set_color([0, 1, 0, 0])
+                    self.canvas.draw()
+                    self._update_data()
+                    self._update_data_plot()
         elif self._drawing:
             if event.button == 1:
                 self._xy.append([event.xdata, event.ydata])
@@ -533,6 +578,8 @@ class Moulder(object):
             return
         if event.button != 1:
             return
+        if self._add_vertex:
+            self._add_vertex = False
         if self._ivert is None and self._ipoly is None:
             return
         self.background = None
@@ -605,19 +652,24 @@ class Moulder(object):
                 'esc: cancel']))
             self.canvas.draw()
         elif event.key == 'escape':
-            self._drawing = False
-            self._xy = []
-            if self._drawing_plot is not None:
-                self._drawing_plot.remove()
-                self._drawing_plot = None
-            for line, poly in zip(self.lines, self.polygons):
-                poly.set_animated(False)
-                line.set_animated(False)
-                line.set_color([0, 0, 0, 0])
+            if self._add_vertex:
+                self._add_vertex = False
+            else:
+                self._drawing = False
+                self._xy = []
+                if self._drawing_plot is not None:
+                    self._drawing_plot.remove()
+                    self._drawing_plot = None
+                for line, poly in zip(self.lines, self.polygons):
+                    poly.set_animated(False)
+                    line.set_animated(False)
+                    line.set_color([0, 0, 0, 0])
             self.canvas.draw()
         elif event.key == 'r':
             self.modelax.set_xlim(self.area[:2])
             self._update_data_plot()
+        elif event.key == 'a':
+            self._add_vertex = not self._add_vertex
 
     def _mouse_move_callback(self, event):
         """
@@ -628,6 +680,8 @@ class Moulder(object):
         if event.button != 1:
             return
         if self._ivert is None and self._ipoly is None:
+            return
+        if self._add_vertex:
             return
         x, y = event.xdata, event.ydata
         p = self._ipoly
