@@ -616,7 +616,7 @@ class Moulder(object):
                 line.set_color([0, 0, 0, 0])
             self.canvas.draw()
         elif event.key == 'r':
-            self.modelax.set_xlim(self.area[0], self.area[1])
+            self.modelax.set_xlim(self.area[:2])
             self._update_data_plot()
 
     def _mouse_move_callback(self, event):
