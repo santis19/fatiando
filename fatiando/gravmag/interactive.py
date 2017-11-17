@@ -666,6 +666,7 @@ class Moulder(object):
             self.canvas.draw()
         elif event.key == 'r':
             self.modelax.set_xlim(self.area[:2])
+            self.modelax.set_ylim(self.area[2:])
             self._update_data_plot()
         elif event.key == 'a':
             self._add_vertex = not self._add_vertex
