@@ -479,16 +479,14 @@ class Moulder(object):
         """
         vertices = self.polygons[self._ipoly].get_xy()
         x, y = vertices[:, 0], vertices[:, 1]
-
         # Compute the angle between the vectors to each pair of
         # vertices corresponding to each line segment of the polygon
         x1, y1 = x[:-1], y[:-1]
-        y2 = numpy.hstack((y1[1:], y1[0]))
-        x2 = numpy.hstack((x1[1:], x1[0]))
+        x2, y2 = numpy.roll(x1, -1), numpy.roll(y1, -1)
         u = numpy.vstack((x1 - event.xdata, y1 - event.ydata)).T
         v = numpy.vstack((x2 - event.xdata, y2 - event.ydata)).T
-        angle = numpy.arccos(numpy.sum(u*v, 1)/ \
-                             numpy.sqrt(numpy.sum(u**2, 1))/ \
+        angle = numpy.arccos(numpy.sum(u*v, 1) /
+                             numpy.sqrt(numpy.sum(u**2, 1)) /
                              numpy.sqrt(numpy.sum(v**2, 1)))
         position = angle.argmax() + 1
         x = numpy.hstack((x[:position], event.xdata, x[position:]))
@@ -519,7 +517,8 @@ class Moulder(object):
                     self.lines[self._ipoly].set_animated(True)
                     self.lines[self._ipoly].set_color([0, 1, 0, 0])
                     self.canvas.draw()
-                    self.background = self.canvas.copy_from_bbox(self.modelax.bbox)
+                    self.background = self.canvas.copy_from_bbox(
+                        self.modelax.bbox)
                     self.modelax.draw_artist(self.polygons[self._ipoly])
                     self.modelax.draw_artist(self.lines[self._ipoly])
                     self.canvas.blit(self.modelax.bbox)
