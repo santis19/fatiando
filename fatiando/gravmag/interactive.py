@@ -107,7 +107,7 @@ class Moulder(object):
     epsilon = 5
     # App instructions printed in the figure suptitle
     instructions = ' | '.join([
-        'n: New polygon', 'd: delete', 'click: select/move', 'a: add vertex'
+        'n: New polygon', 'd: delete', 'click: select/move', 'a: add vertex',
         'r: reset view', 'esc: cancel'])
 
     def __init__(self, area, x, z, data=None, density_range=[-2000, 2000],
