@@ -72,11 +72,11 @@ class Polygon(GeometricElement):
 
     """
 
-    def __init__(self, vertices, props=None, force_CW=False):
+    def __init__(self, vertices, props=None, force_clockwise=False):
         super().__init__(props)
         self._vertices = np.asarray(vertices)
-        if force_CW:
-            self.set_orientation("CW")
+        if force_clockwise:
+            self.set_clockwise()
 
     @property
     def vertices(self):
@@ -96,11 +96,14 @@ class Polygon(GeometricElement):
 
     @property
     def orientation(self):
-        area = self.area(absolute=False)
+        area = self.get_area(absolute=False)
         if area < 0:
             return "CW"
         else:
             return "CCW"
+
+    def set_clockwise(self):
+        self.set_orientation("CW")
 
     def set_orientation(self, orientation):
         if orientation not in ["CW", "CWW"]:
@@ -109,7 +112,7 @@ class Polygon(GeometricElement):
         if orientation != current:
             self._vertices = self._vertices[::-1]
 
-    def area(self, absolute=True):
+    def get_area(self, absolute=True):
         """
         Compute the area of the Polygon.
 
