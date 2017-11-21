@@ -27,6 +27,19 @@ def test_polygon_copy():
     assert pol is not cp
 
 
+def test_polygon_area():
+    """
+    test polygon area computation with a regular hexagon
+    with circumradius equal to 1
+    """
+    angles = np.arange(0, 360, 60)
+    r = 1
+    x, y = r*np.cos(angles*np.pi/180), r*np.sin(angles*np.pi/180)
+    vertices = np.vstack(x, y).T
+    poly = Polygon(vertices)
+    assert poly.area == 3*np.sqrt(3)/2*r**2
+
+
 def test_polygonal_prism_copy():
     "test that copying yields a different object"
     verts = [[1, 1], [1, 2], [2, 2], [2, 1]]
