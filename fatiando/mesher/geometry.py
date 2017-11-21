@@ -53,6 +53,14 @@ class Polygon(GeometricElement):
     * props : dict
         Physical properties assigned to the polygon.
         Ex: ``props={'density':10, 'susceptibility':10000}``
+    * force_clockwise: bool
+        If True the Polygon will rearrange the vertices in order to be
+        clockwise oriented.
+        If False the orientation will be given by the order of the vertices
+        array.
+        Clockwise Polygons are needed for well defined gravity field
+        computations.
+        Default to True.
 
     Examples::
 
@@ -72,11 +80,11 @@ class Polygon(GeometricElement):
 
     """
 
-    def __init__(self, vertices, props=None, force_clockwise=False):
+    def __init__(self, vertices, props=None, force_clockwise=True):
         super().__init__(props)
         self._vertices = np.asarray(vertices)
         if force_clockwise:
-            self.set_clockwise()
+            self.orientation = 'clockwise'
 
     @property
     def vertices(self):
@@ -96,25 +104,40 @@ class Polygon(GeometricElement):
 
     @property
     def orientation(self):
-        area = self.get_area(absolute=False)
+        """
+        Returns the current orientation of the Polygon.
+        It can be either `clockwise` or `counterclockwise`.
+        """
+        area = self._calculate_area(absolute=False)
         if area < 0:
-            return "CW"
+            return "clockwise"
         else:
-            return "CCW"
+            return "counterclockwise"
 
-    def set_clockwise(self):
-        self.set_orientation("CW")
-
-    def set_orientation(self, orientation):
-        if orientation not in ["CW", "CWW"]:
-            raise ValueError("Orientation must be 'CW' or 'CCW'")
-        current = self.orientation
-        if orientation != current:
+    @orientation.setter
+    def orientation(self, new_orientation):
+        """
+        Changes the orientation of the Polygon specified in `new_orientation`.
+        It can be either `clockwise` or `counterclockwise`.
+        """
+        if new_orientation not in ["clockwise", "counterclockwise"]:
+            raise ValueError("Orientation must be 'clockwise' or " +
+                             "'counterclockwise'")
+        if new_orientation != self.orientation:
             self._vertices = self._vertices[::-1]
 
-    def get_area(self, absolute=True):
+    @property
+    def area(self):
         """
-        Compute the area of the Polygon.
+        Returns the area of the Polygon (always positive or zero).
+        """
+        return self._calculate_area(absolute=True)
+
+    def _calculate_area(self, absolute=True):
+        """
+        Compute the area of the Polygon through the Shoelace formula
+        [(Meister, 1769; Gauss, 1975)]
+        (https://en.wikipedia.org/wiki/Shoelace_formula):
 
         .. math::
             A = \frac{1}{2} | \sum\limits_{i=0}^{n-1}
