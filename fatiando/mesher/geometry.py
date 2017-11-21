@@ -162,7 +162,7 @@ class Polygon(GeometricElement):
         x, y = vertices[:, 0], vertices[:, 1]
         x = np.hstack((x[:], x[0]))
         y = np.hstack((y[:], y[0]))
-        area = np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
+        area = 0.5*np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
         if absolute:
             return np.abs(area)
         else:
