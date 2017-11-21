@@ -129,12 +129,6 @@ class Polygon(GeometricElement):
     @property
     def area(self):
         """
-        Returns the area of the Polygon (always positive or zero).
-        """
-        return self._calculate_area(absolute=True)
-
-    def _calculate_area(self, absolute=True):
-        """
         Compute the area of the Polygon through the Shoelace formula
         [(Meister, 1769; Gauss, 1975)]
         (https://en.wikipedia.org/wiki/Shoelace_formula):
@@ -144,19 +138,13 @@ class Polygon(GeometricElement):
                 (x_{i} y_{i+1} - x_{i+1} y_{i}) |
 
         where :math:`x_0 = x_n` and :math:`y_0 = y_n`.
+        """
+        return self._calculate_area(absolute=True)
 
-        If ``absolute`` is ``False`` the area is computed without applyting
+    def _calculate_area(self, absolute=True):
+        """
+        If ``absolute`` is ``False`` the area is computed without applying
         the absolute value.
-
-        Parameters:
-
-        * absolute: bool
-            If True, the absolute value is returned, so the area is always
-            positive.
-            If False, the area can be either positive or negative.
-            The sign gives information about the orientation of the vertices:
-            If area is negative, the vertices are orientend clockwise.
-            if area is positive, the vertices are oriented counter-clockwise.
         """
         vertices = self.vertices
         x, y = vertices[:, 0], vertices[:, 1]
