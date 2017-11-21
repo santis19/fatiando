@@ -72,9 +72,11 @@ class Polygon(GeometricElement):
 
     """
 
-    def __init__(self, vertices, props=None):
+    def __init__(self, vertices, props=None, force_clockwise=False):
         super().__init__(props)
         self._vertices = np.asarray(vertices)
+        if force_clockwise:
+            self.set_clockwise()
 
     @property
     def vertices(self):
@@ -91,6 +93,57 @@ class Polygon(GeometricElement):
     @property
     def y(self):
         return self.vertices[:, 1]
+
+    @property
+    def orientation(self):
+        area = self.get_area(absolute=False)
+        if area < 0:
+            return "CW"
+        else:
+            return "CCW"
+
+    def set_clockwise(self):
+        self.set_orientation("CW")
+
+    def set_orientation(self, orientation):
+        if orientation not in ["CW", "CWW"]:
+            raise ValueError("Orientation must be 'CW' or 'CCW'")
+        current = self.orientation
+        if orientation != current:
+            self._vertices = self._vertices[::-1]
+
+    def get_area(self, absolute=True):
+        """
+        Compute the area of the Polygon.
+
+        .. math::
+            A = \frac{1}{2} | \sum\limits_{i=0}^{n-1}
+                (x_{i} y_{i+1} - x_{i+1} y_{i}) |
+
+        where :math:`x_0 = x_n` and :math:`y_0 = y_n`.
+
+        If ``absolute`` is ``False`` the area is computed without applyting
+        the absolute value.
+
+        Parameters:
+
+        * absolute: bool
+            If True, the absolute value is returned, so the area is always
+            positive.
+            If False, the area can be either positive or negative.
+            The sign gives information about the orientation of the vertices:
+            If area is negative, the vertices are orientend clockwise.
+            if area is positive, the vertices are oriented counter-clockwise.
+        """
+        vertices = self.vertices
+        x, y = vertices[:, 0], vertices[:, 1]
+        x = np.hstack((x[:], x[0]))
+        y = np.hstack((y[:], y[0]))
+        area = np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
+        if absolute:
+            return np.abs(area)
+        else:
+            return area
 
 
 class Square(Polygon):
