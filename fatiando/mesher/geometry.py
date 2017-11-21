@@ -146,10 +146,7 @@ class Polygon(GeometricElement):
         If ``absolute`` is ``False`` the area is computed without applying
         the absolute value.
         """
-        vertices = self.vertices
-        x, y = vertices[:, 0], vertices[:, 1]
-        x = np.hstack((x[:], x[0]))
-        y = np.hstack((y[:], y[0]))
+        x, y = self.x, self.y
         area = 0.5*np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
         if absolute:
             return np.abs(area)
