@@ -2,7 +2,8 @@
 Radial Average Power Spectrum
 -----------------------------
 
-add description
+This example uses the Hawaii gravity data to compute the radial average of its
+power spectrum.
 
 """
 from __future__ import division, print_function
@@ -24,21 +25,12 @@ x, y, gravity = gridder.interp(data['x'], data['y'],
                                shape, area=area)
 
 # Lets compute the Power Density Spectra (2d arrays)
-ky, kx, pds = transform.power_density_spectra(x, y, gravity, shape)
+kx, ky, pds = transform.power_density_spectra(x, y, gravity, shape)
 
 # And then compute the radial average of the PDS
 k_radial, pds_radial = transform.radial_average_spectrum(kx, ky, pds)
 
-# Plot results
-plt.contourf(y.reshape(shape), x.reshape(shape),
-             gravity.reshape(shape), 100)
-plt.axes().set_aspect('equal')
-plt.colorbar()
-plt.xlabel("m")
-plt.ylabel("m")
-plt.title("Topography Free Gravity Disturbance")
-plt.show()
-
+# Plot result
 plt.plot(k_radial, np.log(pds_radial), 'o-')
 plt.xlabel("log(PDS)")
 plt.ylabel("k [1/m]")
