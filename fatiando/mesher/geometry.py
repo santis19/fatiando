@@ -202,7 +202,7 @@ class PolygonVertical(BasePolygon):
         return self.vertices[:, 1]
 
 
-class Square(Polygon):
+class Square(BasePolygon):
     """
     A square object (2D).
 
