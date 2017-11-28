@@ -40,6 +40,35 @@ class GeometricElement(object):
         return cp.deepcopy(self)
 
 
+class BasePolygon(GeometricElement):
+    """
+    Base class for PolygonHorizontal and PolygonVertical.
+    """
+    def __init__(self, vertices, props):
+        super().__init__(props)
+        self._vertices = np.asarray(vertices)
+
+    @property
+    def vertices(self):
+        return self._vertices
+
+    @property
+    def nverts(self):
+        return len(self.vertices)
+
+    def _calculate_area(self, absolute=True):
+        """
+        If ``absolute`` is ``False`` the area is computed without applying
+        the absolute value.
+        """
+        v1, v2 = self.vertices[:, 0], self.vertices[:, 1]
+        area = 0.5*np.sum(v1*np.roll(v2, 1) - np.roll(v1, 1)*v2)
+        if absolute:
+            return np.abs(area)
+        else:
+            return area
+
+
 class Polygon(GeometricElement):
     """
     A polygon object (2D).
