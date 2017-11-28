@@ -69,6 +69,52 @@ class BasePolygon(GeometricElement):
             return area
 
 
+class PolygonVertical(BasePolygon):
+    """
+    Vertical Polygon
+    x -> horizontal coordinates
+    z -> vertical coordinates (z->DOWN)
+
+    Explain what clockwise really means.
+    """
+    def __init__(self, vertices, props=None, force_clockwise=True):
+        super().__init__(vertices, props)
+        if force_clockwise:
+            self.orientation = "clockwise"
+
+    @property
+    def x(self):
+        return self.vertices[:, 0]
+
+    @property
+    def z(self):
+        return self.vertices[:, 1]
+
+    @property
+    def orientation(self):
+        """
+        Returns the current orientation of the Polygon.
+        It can be either `clockwise` or `counterclockwise`.
+        """
+        area = self._calculate_area(absolute=False)
+        if area < 0:
+            return "clockwise"
+        else:
+            return "counterclockwise"
+
+    @orientation.setter
+    def orientation(self, new_orientation):
+        """
+        Changes the orientation of the Polygon specified in `new_orientation`.
+        It can be either `clockwise` or `counterclockwise`.
+        """
+        if new_orientation not in ["clockwise", "counterclockwise"]:
+            raise ValueError("Orientation must be 'clockwise' or " +
+                             "'counterclockwise'")
+        if new_orientation != self.orientation:
+            self._vertices = self._vertices[::-1]
+
+
 class Polygon(GeometricElement):
     """
     A polygon object (2D).
