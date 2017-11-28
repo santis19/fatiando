@@ -56,40 +56,6 @@ class BasePolygon(GeometricElement):
     def nverts(self):
         return len(self.vertices)
 
-    def _calculate_area(self, absolute=True):
-        """
-        If ``absolute`` is ``False`` the area is computed without applying
-        the absolute value.
-        """
-        v1, v2 = self.vertices[:, 0], self.vertices[:, 1]
-        area = 0.5*np.sum(v1*np.roll(v2, 1) - np.roll(v1, 1)*v2)
-        if absolute:
-            return np.abs(area)
-        else:
-            return area
-
-
-class PolygonVertical(BasePolygon):
-    """
-    Vertical Polygon
-    x -> horizontal coordinates
-    z -> vertical coordinates (z->DOWN)
-
-    Explain what clockwise really means.
-    """
-    def __init__(self, vertices, props=None, force_clockwise=True):
-        super().__init__(vertices, props)
-        if force_clockwise:
-            self.orientation = "clockwise"
-
-    @property
-    def x(self):
-        return self.vertices[:, 0]
-
-    @property
-    def z(self):
-        return self.vertices[:, 1]
-
     @property
     def orientation(self):
         """
@@ -114,12 +80,25 @@ class PolygonVertical(BasePolygon):
         if new_orientation != self.orientation:
             self._vertices = self._vertices[::-1]
 
+    def _calculate_area(self, absolute=True):
+        """
+        If ``absolute`` is ``False`` the area is computed without applying
+        the absolute value.
+        """
+        v1, v2 = self.vertices[:, 0], self.vertices[:, 1]
+        area = 0.5*np.sum(v1*np.roll(v2, 1) - np.roll(v1, 1)*v2)
+        if absolute:
+            return np.abs(area)
+        else:
+            return area
 
-class Polygon(GeometricElement):
+
+class PolygonHorizontal(BasePolygon):
     """
-    A polygon object (2D).
+    An horizontal polygon object (2D).
 
-    .. note:: Most applications require the vertices to be **clockwise**!
+    .. note::
+        Remember that `x` points North while `y` points East
 
     Parameters:
 
@@ -152,22 +131,11 @@ class Polygon(GeometricElement):
         array([0, 1, 2])
         >>> poly.y
         array([0, 4, 5])
-
     """
-
     def __init__(self, vertices, props=None, force_clockwise=True):
-        super().__init__(props)
-        self._vertices = np.asarray(vertices)
+        super().__init__(vertices, props)
         if force_clockwise:
-            self.orientation = 'clockwise'
-
-    @property
-    def vertices(self):
-        return self._vertices
-
-    @property
-    def nverts(self):
-        return len(self.vertices)
+            self.orientation = "clockwise"
 
     @property
     def x(self):
@@ -177,56 +145,61 @@ class Polygon(GeometricElement):
     def y(self):
         return self.vertices[:, 1]
 
+
+class PolygonVertical(BasePolygon):
+    """
+    A vertical polygon object (2D).
+
+    .. note::
+        `x` is the horizontal coordinate, `z` is the vertical coordinate
+
+    .. warning::
+        `z` -> **DOWN**
+
+    Parameters:
+
+    * vertices : list of lists
+        List of [x, z] pairs with the coordinates of the vertices.
+    * props : dict
+        Physical properties assigned to the polygon.
+        Ex: ``props={'density':10, 'susceptibility':10000}``
+    * force_clockwise: bool
+        If True the Polygon will rearrange the vertices in order to be
+        clockwise oriented.
+        If False the orientation will be given by the order of the vertices
+        array.
+        Clockwise Polygons are needed for well defined gravity field
+        computations.
+        Default to True.
+
+    Examples::
+
+        >>> poly = Polygon([[0, 0], [1, -4], [2, -5]], {'density': 500})
+        >>> poly.props
+        {'density': 500}
+        >>> poly.nverts
+        3
+        >>> poly.vertices
+        array([[0, 0],
+               [1, -4],
+               [2, -5]])
+        >>> poly.x
+        array([0, 1, 2])
+        >>> poly.z
+        array([0, -4, -5])
+    """
+    def __init__(self, vertices, props=None, force_clockwise=True):
+        super().__init__(vertices, props)
+        if force_clockwise:
+            self.orientation = "clockwise"
+
     @property
-    def orientation(self):
-        """
-        Returns the current orientation of the Polygon.
-        It can be either `clockwise` or `counterclockwise`.
-        """
-        area = self._calculate_area(absolute=False)
-        if area < 0:
-            return "clockwise"
-        else:
-            return "counterclockwise"
-
-    @orientation.setter
-    def orientation(self, new_orientation):
-        """
-        Changes the orientation of the Polygon specified in `new_orientation`.
-        It can be either `clockwise` or `counterclockwise`.
-        """
-        if new_orientation not in ["clockwise", "counterclockwise"]:
-            raise ValueError("Orientation must be 'clockwise' or " +
-                             "'counterclockwise'")
-        if new_orientation != self.orientation:
-            self._vertices = self._vertices[::-1]
+    def x(self):
+        return self.vertices[:, 0]
 
     @property
-    def area(self):
-        """
-        Compute the area of the Polygon through the Shoelace formula
-        [(Meister, 1769; Gauss, 1975)]
-        (https://en.wikipedia.org/wiki/Shoelace_formula):
-
-        .. math::
-            A = \frac{1}{2} | \sum\limits_{i=0}^{n-1}
-                (x_{i} y_{i+1} - x_{i+1} y_{i}) |
-
-        where :math:`x_0 = x_n` and :math:`y_0 = y_n`.
-        """
-        return self._calculate_area(absolute=True)
-
-    def _calculate_area(self, absolute=True):
-        """
-        If ``absolute`` is ``False`` the area is computed without applying
-        the absolute value.
-        """
-        x, y = self.x, self.y
-        area = 0.5*np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
-        if absolute:
-            return np.abs(area)
-        else:
-            return area
+    def z(self):
+        return self.vertices[:, 1]
 
 
 class Square(Polygon):
