@@ -40,16 +40,15 @@ def gz(xp, zp, polygons, dens=None):
 
     * xp, zp : arrays
         The x and z coordinates of the computation points.
-    * polygons : list of :func:`~fatiando.mesher.Polygon`
+    * polygons : list of :func:`~fatiando.mesher.PolygonVertical`
         The density model used.
-        Polygons must have the property ``'density'``. Polygons that don't have
-        this property will be ignored in the computations. Elements of
-        *polygons* that are None will also be ignored.
+        PolygonsVertical must have the property ``'density'``.
+        PolygonsVertical that don't have this property will be ignored in the
+        computations.
+        Elements of *polygons* that are None will also be ignored.
     * dens : float or None
         If not None, will use this value instead of the ``'density'`` property
         of the polygons. Use this, e.g., for sensitivity matrix building.
-
-        .. note:: The y coordinate of the polygons is used as z!
 
     Returns:
 
@@ -64,12 +63,16 @@ def gz(xp, zp, polygons, dens=None):
         if polygon is None or ('density' not in polygon.props and
                                dens is None):
             continue
+        if not polygon.is_vertical:
+            raise Warning("Founded a non vertical Polygon! " +
+                          "It will be ignored.")
+            continue
         if dens is None:
             density = polygon.props['density']
         else:
             density = dens
         x = polygon.x
-        z = polygon.y
+        z = polygon.z
         nverts = polygon.nverts
         for v in range(nverts):
             # Change the coordinates of this vertice
