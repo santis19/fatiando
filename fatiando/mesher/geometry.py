@@ -145,6 +145,10 @@ class PolygonHorizontal(BasePolygon):
     def y(self):
         return self.vertices[:, 1]
 
+    @property
+    def is_vertical(self):
+        return False
+
 
 class PolygonVertical(BasePolygon):
     """
@@ -200,6 +204,10 @@ class PolygonVertical(BasePolygon):
     @property
     def z(self):
         return self.vertices[:, 1]
+
+    @property
+    def is_vertical(self):
+        return True
 
 
 class Square(BasePolygon):
