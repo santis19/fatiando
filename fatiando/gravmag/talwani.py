@@ -4,7 +4,7 @@ cross-section using the formula of Talwani et al. (1959)
 
 Use the :func:`~fatiando.mesher.Polygon` object to create polygons.
 
-.. warning:: The vertices must be given clockwise! If not, they will be
+.. warning:: The Polygon must be `clockwise` oriented! If not, they will be
     ignored.
 
 **Components**
