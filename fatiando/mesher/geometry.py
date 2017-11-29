@@ -76,7 +76,7 @@ class Polygon(GeometricElement):
         3
         >>> poly.vertices
         array([[0, 0],
-               [1, 4],North, y -> East
+               [1, 4],
                [2, 5]])
         >>> poly.x
         array([0, 1, 2])
@@ -124,8 +124,10 @@ class Polygon(GeometricElement):
         area = self._calculate_area(absolute=False)
         if area < 0:
             return "clockwise"
-        else:
+        elif area > 0:
             return "counterclockwise"
+        else:
+            return 'undefined'
 
     @orientation.setter
     def orientation(self, new_orientation):
@@ -136,6 +138,9 @@ class Polygon(GeometricElement):
         if new_orientation not in ["clockwise", "counterclockwise"]:
             raise ValueError("Orientation must be 'clockwise' or " +
                              "'counterclockwise'")
+        if self.orientation is 'undefined':
+            raise ValueError("Polygon orientation cannot be defined, " +
+                             "thus it cannot be changed.")
         if new_orientation != self.orientation:
             self._vertices = self._vertices[::-1]
 
