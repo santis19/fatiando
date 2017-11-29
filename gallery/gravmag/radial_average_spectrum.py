@@ -30,9 +30,25 @@ kx, ky, pds = transform.power_density_spectra(x, y, gravity, shape)
 # And then compute the radial average of the PDS
 k_radial, pds_radial = transform.radial_average_spectrum(kx, ky, pds)
 
-# Plot result
-plt.plot(k_radial, np.log(pds_radial), 'o-')
-plt.ticklabel_format(axis='x', style='sci', scilimits=(1, 1))
-plt.xlabel("k [m$^{-1}$]")
-plt.ylabel("log(PDS)")
+# Plot Hawaii gravity and radially averaged power spectrum
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 4))
+cm = ax1.contourf(y.reshape(shape),
+                  x.reshape(shape),
+                  gravity.reshape(shape), 100)
+ax1.contour(y.reshape(shape),
+            x.reshape(shape),
+            gravity.reshape(shape),
+            8, colors='k', linewidths=0.4)
+ax1.set_aspect('equal')
+ax1.set_xlabel('m')
+ax1.set_ylabel('m')
+ax1.ticklabel_format(axis='x', style='sci', scilimits=(1, 1))
+ax1.ticklabel_format(axis='y', style='sci', scilimits=(1, 1))
+plt.colorbar(cm, ax=ax1, label='mGal')
+
+ax2.plot(k_radial, np.log(pds_radial), 'o-')
+ax2.ticklabel_format(axis='x', style='sci', scilimits=(1, 1))
+ax2.set_xlabel("k [m$^{-1}$]")
+ax2.set_ylabel("log(PDS)")
+plt.tight_layout()
 plt.show()
