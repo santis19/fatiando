@@ -616,26 +616,3 @@ class PolygonalPrism(GeometricElement):
         self.z1 = float(z1)
         self.z2 = float(z2)
         self.nverts = len(vertices)
-
-    def topolygon(self):
-        """
-        Get the polygon describing the prism viewed from above.
-
-        Returns:
-
-        * polygon : :func:`fatiando.mesher.Polygon`
-            The polygon
-
-        Example:
-
-            >>> verts = [[1, 1], [1, 2], [2, 2], [2, 1]]
-            >>> p = PolygonalPrism(verts, 0, 100)
-            >>> poly = p.topolygon()
-            >>> print poly.x
-            [ 1.  1.  2.  2.]
-            >>> print poly.y
-            [ 1.  2.  2.  1.]
-
-        """
-        verts = np.transpose([self.x, self.y])
-        return Polygon(verts, self.props)
