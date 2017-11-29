@@ -32,6 +32,7 @@ k_radial, pds_radial = transform.radial_average_spectrum(kx, ky, pds)
 
 # Plot result
 plt.plot(k_radial, np.log(pds_radial), 'o-')
-plt.xlabel("log(PDS)")
-plt.ylabel("k [1/m]")
+plt.ticklabel_format(axis='x', style='sci', scilimits=(1, 1))
+plt.xlabel("k [m$^{-1}$]")
+plt.ylabel("log(PDS)")
 plt.show()
