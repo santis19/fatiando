@@ -4,8 +4,8 @@ cross-section using the formula of Talwani et al. (1959)
 
 Use the :func:`~fatiando.mesher.Polygon` object to create polygons.
 
-.. warning:: the vertices must be given clockwise! If not, the result will have
-    an inverted sign.
+.. warning:: The vertices must be given clockwise! If not, they will be
+    ignored.
 
 **Components**
 
@@ -42,14 +42,14 @@ def gz(xp, zp, polygons, dens=None):
         The x and z coordinates of the computation points.
     * polygons : list of :func:`~fatiando.mesher.Polygon`
         The density model used.
-        Polygons must have the property ``'density'``. Polygons that don't have
-        this property will be ignored in the computations. Elements of
-        *polygons* that are None will also be ignored.
+        Polygons must have the property ``'density'``.
+        Polygons that don't have this property will be ignored in the
+        computations.
+        Polygons that are not `clockwise` oriented will be ignored.
+        Elements of *polygons* that are None will also be ignored.
     * dens : float or None
         If not None, will use this value instead of the ``'density'`` property
         of the polygons. Use this, e.g., for sensitivity matrix building.
-
-        .. note:: The y coordinate of the polygons is used as z!
 
     Returns:
 
@@ -64,12 +64,16 @@ def gz(xp, zp, polygons, dens=None):
         if polygon is None or ('density' not in polygon.props and
                                dens is None):
             continue
+        if polygon.orientation is not 'clockwise':
+            raise Warning("Founded a non clockwise oriented Polygon. " +
+                          "It will be ignored.")
+            continue
         if dens is None:
             density = polygon.props['density']
         else:
             density = dens
         x = polygon.x
-        z = polygon.y
+        z = polygon.z
         nverts = polygon.nverts
         for v in range(nverts):
             # Change the coordinates of this vertice
