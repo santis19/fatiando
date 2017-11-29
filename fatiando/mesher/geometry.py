@@ -42,19 +42,24 @@ class GeometricElement(object):
 
 class Polygon(GeometricElement):
     """
-    A polygon object (2D).
+    A vertical polygon object (2D).
 
-    .. note:: Most applications require the vertices to be **clockwise**!
+    .. note::
+        The coordinate system used is x -> horizontal and z -> **DOWN**
+
+    .. note::
+        The Polygon will be defined clockwise as default, needed for most
+        applications.
 
     Parameters:
 
     * vertices : list of lists
-        List of [x, y] pairs with the coordinates of the vertices.
+        List of [x, z] pairs with the coordinates of the vertices.
     * props : dict
         Physical properties assigned to the polygon.
         Ex: ``props={'density':10, 'susceptibility':10000}``
     * force_clockwise: bool
-        If True the Polygon will rearrange the vertices in order to be
+        If True the vertices will be rearranged in order to be
         clockwise oriented.
         If False the orientation will be given by the order of the vertices
         array.
@@ -71,11 +76,11 @@ class Polygon(GeometricElement):
         3
         >>> poly.vertices
         array([[0, 0],
-               [1, 4],
+               [1, 4],North, y -> East
                [2, 5]])
         >>> poly.x
         array([0, 1, 2])
-        >>> poly.y
+        >>> poly.z
         array([0, 4, 5])
 
     """
@@ -99,7 +104,7 @@ class Polygon(GeometricElement):
         return self.vertices[:, 0]
 
     @property
-    def y(self):
+    def z(self):
         return self.vertices[:, 1]
 
     @property
@@ -107,6 +112,14 @@ class Polygon(GeometricElement):
         """
         Returns the current orientation of the Polygon.
         It can be either `clockwise` or `counterclockwise`.
+
+        A `clockwise` Polygon means that a right-hand rule applied on the
+        rotation around its vertices points in the same direction as the
+        cross product of the unit vectors associated with the `x` and `z` axes,
+        on that order.
+
+        A `counterclockwise` Polygon means that they point on opposite
+        directions.
         """
         area = self._calculate_area(absolute=False)
         if area < 0:
@@ -135,9 +148,9 @@ class Polygon(GeometricElement):
 
         .. math::
             A = \frac{1}{2} | \sum\limits_{i=0}^{n-1}
-                (x_{i} y_{i+1} - x_{i+1} y_{i}) |
+                (x_{i} z_{i+1} - x_{i+1} z_{i}) |
 
-        where :math:`x_0 = x_n` and :math:`y_0 = y_n`.
+        where :math:`x_0 = x_n` and :math:`z_0 = z_n`.
         """
         return self._calculate_area(absolute=True)
 
@@ -146,8 +159,8 @@ class Polygon(GeometricElement):
         If ``absolute`` is ``False`` the area is computed without applying
         the absolute value.
         """
-        x, y = self.x, self.y
-        area = 0.5*np.sum(x*np.roll(y, 1) - np.roll(x, 1)*y)
+        x, z = self.x, self.z
+        area = 0.5*np.sum(x*np.roll(z, 1) - np.roll(x, 1)*z)
         if absolute:
             return np.abs(area)
         else:
