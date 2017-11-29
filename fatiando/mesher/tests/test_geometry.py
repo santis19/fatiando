@@ -34,8 +34,8 @@ def test_polygon_area():
     """
     angles = np.arange(0, 360, 60)
     r = 1
-    x, y = r*np.cos(angles*np.pi/180), r*np.sin(angles*np.pi/180)
-    vertices = zip(x, y)
+    x, z = r*np.cos(angles*np.pi/180), r*np.sin(angles*np.pi/180)
+    vertices = zip(x, z)
     poly = Polygon(vertices)
     assert poly.area == 3*np.sqrt(3)/2*r**2
 
@@ -44,23 +44,23 @@ def test_polygon_orientation():
     "test polygon orientation"
     angles = np.arange(0, 360, 60)
     r = 1
-    x, y = r*np.cos(angles*np.pi/180), r*np.sin(angles*np.pi/180)
-    # test counterclockwise
-    vertices = zip(x, y)
-    poly = Polygon(vertices, force_clockwise=False)
-    assert poly.orientation == "counterclockwise"
-    poly.set_orientation('counterclockwise')
-    assert poly.orientation == "counterclockwise"
-    poly.set_orientation('clockwise')
-    assert poly.orientation == "clockwise"
+    x, z = r*np.cos(angles*np.pi/180), r*np.sin(angles*np.pi/180)
     # test clockwise
-    vertices = zip(x[::-1], y[::-1])
+    vertices = zip(x, z)
     poly = Polygon(vertices, force_clockwise=False)
     assert poly.orientation == "clockwise"
-    poly.set_orientation('clockwise')
+    poly.orientation = 'clockwise'
     assert poly.orientation == "clockwise"
-    poly.set_orientation('counterclockwise')
+    poly.orientation = 'counterclockwise'
     assert poly.orientation == "counterclockwise"
+    # test counterclockwise
+    vertices = zip(x[::-1], z[::-1])
+    poly = Polygon(vertices, force_clockwise=False)
+    assert poly.orientation == "counterclockwise"
+    poly.orientation = 'counterclockwise'
+    assert poly.orientation == "counterclockwise"
+    poly.orientation = 'clockwise'
+    assert poly.orientation == "clockwise"
 
 
 def test_polygonal_prism_copy():
