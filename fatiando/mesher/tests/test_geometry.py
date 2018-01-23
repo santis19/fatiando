@@ -4,8 +4,8 @@ Test the geometric element classes.
 from __future__ import absolute_import
 import numpy as np
 
-from ..geometry import Square, GeometricElement, Polygon, PolygonalPrism, \
-    Prism, Sphere, Tesseroid
+from ..geometry import Square, GeometricElement, Polygon, \
+    PolygonHorizontal, PolygonalPrism, Prism, Sphere, Tesseroid
 
 
 def test_geometric_element_copy():
@@ -18,7 +18,7 @@ def test_geometric_element_copy():
     assert orig.props != cp.props
 
 
-def test_polygon_copy():
+def test_polygon_vertical_copy():
     "test that copying yields a different object"
     pol = Polygon([[0, 0], [1, 4], [2, 5]], {'density': 500})
     cp = pol.copy()
@@ -27,7 +27,16 @@ def test_polygon_copy():
     assert pol is not cp
 
 
-def test_polygon_area():
+def test_polygon_horizontal_copy():
+    "test that copying yields a different object"
+    pol = PolygonHorizontal([[0, 0], [1, 4], [2, 5]], {'density': 500})
+    cp = pol.copy()
+    assert pol.nverts == cp.nverts
+    assert pol.vertices.all() == cp.vertices.all()
+    assert pol is not cp
+
+
+def test_polygon_vertical_area():
     """
     test polygon area computation with a regular hexagon
     with circumradius equal to 1
@@ -40,7 +49,7 @@ def test_polygon_area():
     assert poly.area == 3*np.sqrt(3)/2*r**2
 
 
-def test_polygon_orientation():
+def test_polygon_vertical_orientation():
     "test polygon orientation"
     angles = np.arange(0, 360, 60)
     r = 1
