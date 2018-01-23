@@ -40,7 +40,57 @@ class GeometricElement(object):
         return cp.deepcopy(self)
 
 
-class Polygon(GeometricElement):
+class PolygonBase(GeometricElement):
+    """
+    Base class for `PolygonHorizontal` and `Polygon` classes.
+    """
+
+    def __init__(self, vertices, props=None):
+        super().__init__(props)
+        self._vertices = np.asarray(vertices)
+
+    @property
+    def vertices(self):
+        return self._vertices
+
+    @property
+    def nverts(self):
+        return len(self.vertices)
+
+
+class PolygonHorizontal(PolygonBase):
+    """
+    An horizontal polygon object (2D).
+
+    .. note::
+        The coordinate system used is x -> Northing and y -> Easting
+
+    .. note::
+        For 2D forward gravity calculations use `Polygon`.
+
+    Parameters:
+
+    * vertices : list of lists
+        List of [x, y] pairs with the coordinates of the vertices.
+    * props : dict
+        Physical properties assigned to the polygon.
+        Ex: ``props={'density':10, 'susceptibility':10000}``
+
+    """
+
+    def __init__(self, vertices, props=None):
+        super().__init__(vertices, props=props)
+
+    @property
+    def x(self):
+        return self.vertices[:, 0]
+
+    @property
+    def y(self):
+        return self.vertices[:, 1]
+
+
+class Polygon(PolygonBase):
     """
     A vertical polygon object (2D).
 
@@ -48,8 +98,8 @@ class Polygon(GeometricElement):
         The coordinate system used is x -> horizontal and z -> **DOWN**
 
     .. note::
-        The Polygon will be defined clockwise as default, needed for most
-        applications.
+        The `Polygon` will be defined clockwise as default, needed
+        for most applications.
 
     Parameters:
 
@@ -75,29 +125,20 @@ class Polygon(GeometricElement):
         >>> poly.nverts
         3
         >>> poly.vertices
-        array([[0, 0],
+        array([[2, 5],
                [1, 4],
-               [2, 5]])
+               [0, 0]])
         >>> poly.x
-        array([0, 1, 2])
+        array([2, 1, 0])
         >>> poly.z
-        array([0, 4, 5])
+        array([5, 4, 0])
 
     """
 
     def __init__(self, vertices, props=None, force_clockwise=True):
-        super().__init__(props)
-        self._vertices = np.asarray(vertices)
+        super().__init__(vertices, props=props)
         if force_clockwise:
             self.orientation = 'clockwise'
-
-    @property
-    def vertices(self):
-        return self._vertices
-
-    @property
-    def nverts(self):
-        return len(self.vertices)
 
     @property
     def x(self):
@@ -172,7 +213,7 @@ class Polygon(GeometricElement):
             return area
 
 
-class Square(Polygon):
+class Square(PolygonHorizontal):
     """
     A square object (2D).
 
